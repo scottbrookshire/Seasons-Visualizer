@@ -54,7 +54,7 @@ function setup(){
 
     //draw a circle
     circle = two.makeCircle(0, 0, 25);
-    circle.fill = 'ff8000';
+    circle.fill = '#f89406';
     group.add(circle);
 
    
@@ -70,17 +70,16 @@ function draw(){
 	var vol = mic.getLevel();
 
 	//map the volume to a larger more usable number
-	var m = map(vol, 0, 1, 0, 100);
+	var m = map(vol, 0, 1, 0, 50);
 
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
 
 	//draws a circle that scales with audio level 
-	var numCircle = 15;
+		circle.scale = m;
+
+	//print(m);
 	
-	for(i = 0; i < numCircle; i++ ){
-		circle.scale += map( vol / 10, -1, 1, -1, 1 );
-	}
 	
 	
 	
