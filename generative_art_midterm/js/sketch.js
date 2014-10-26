@@ -5,36 +5,16 @@ var two;
 var input;
 var analyzer;
 var fft;
-var group;
-var circle =[];
+var ellipse =[];
 var moving = false;
+var agent;
 
 function setup(){
 
-	//p5.js call to not load canvas
-	noCanvas();
+	//Create the canvas at window height and width
+	createCanvas(windowWidth, windowHeight);
 
-	//two constructor sets the drawing area to the browser window
-	two = new Two({
-		fullscreen:true,
-	// type: Two.Types.svg || Two.Types.canvas || Two.Types.webgl
-	});
-	two.appendTo(document.body); //append the two instance to the body of the docement
-
-	//override the default width and height with the size of Two.js renderer size
-	width = two.width;
-	height = two.height;
-
-	//Bind the "resize" event to the two instance when the window is resized 
-	//.bind takes a string as its first parameter indicating what event to listen 
-	//to and a function as its second argument delineating what to do when the event 
-	//described in the first parameter happens.
-	two.bind("resize", function(){
-		width = two.width;
-		height = two.height;
-		two.scene.translation.set( two.width / 2, two.height / 2);
-		two.update();
-	});
+	agent = createVector(0, 0);
 
 	//create an audio input
 	mic = new p5.AudioIn();
@@ -49,43 +29,78 @@ function setup(){
 	//set the input for the frequency analyze to the microphone
 	fft.setInput(mic);
 
-	// Create a shape group to that we will add each path to
-    group = two.makeGroup();
 
-    //draw a circle
-    circle = two.makeCircle(0, 0, 25);
-    circle.fill = '#f89406';
-    group.add(circle);
+	//set up tweening objects
+	var tween1 = new TWEEN.Tween(agent);
+	tween1. to ( {x: 0, y: 0}, 2000);//we initulize tweening values here followed by time in milliseconds
+	tween1.easing( TWEEN.Easing.Sinusoidal.InOut );
+	tween1.onStart(function(){	
+		print("Agent's x: " + agent.x + " y: " + agent.y);
+	});
+	tween1.onUpdate(function(){});
+    tween1.onComplete(function(){
+        tween2.start();//chain tweens
+    });
 
-   
-
-    two.update();
+    var tween2 = new TWEEN.Tween( agent );
+    tween2.to( { x: 200 , y: 200}, 2000 );
+    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween2.onStart(function(){
+        print("Agent's x: " + agent.x + " y: " + agent.y);
+    });
+    tween2.onComplete(function(){
+        tween1.start();
+    });
+	
+	tween1.start();
 
 }
 
 function draw(){
 
+	background(255);
 	
 	//get the overall volume(between 0 and 1.0)
 	var vol = mic.getLevel();
 
 	//map the volume to a larger more usable number
-	var m = map(vol, 0, 1, 0, 50);
+	var m = map(vol, 0, 1, 0, 900);
 
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
 
 	//draws a circle that scales with audio level 
-		circle.scale = m;
+	//translate(windowWidth / 2,windowHeight / 2);
+	fill(random(m,m/2),random(m,m/2),random(m,m/2));
+		
+	//draws an ellipse that position is updated by tween and scale is
+	//driven by the amplitude of audio
+	ellipse(width / 2, height / 2,agent.x,agent.y);
+
+	var tileCount = 2;
+	
+	//create a nested loop to draw squares on screen
+	translate( width / tileCount / 2, height / tileCount / 2 );
+	for (i = 0; i <  tileCount; i++){
+		for(j = 0; j < tileCount; j++){
+
+			var posX = windowWidth /tileCount* i;
+			var posY = windowHeight /tileCount * j;
+			rectMode(RADIUS);
+			rect( posX , posY , m, m);
+		}
+
+	}
+	
+	
+		
+		
+		
+	TWEEN.update();
 
 	//print(m);
 	
 	
-	
-	
-
-	//update our instance of two and all of it's contents
-	two.update();
 
 	//print(spectrum[]);
 	
