@@ -43,7 +43,7 @@ function setup(){
     });
 
     var tween2 = new TWEEN.Tween( agent );
-    tween2.to( { x: 200 , y: 200}, 2000 );
+    tween2.to( { x: 255 , y: 255}, 2000 );
     tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween2.onStart(function(){
         print("Agent's x: " + agent.x + " y: " + agent.y);
@@ -58,7 +58,7 @@ function setup(){
 
 function draw(){
 
-	background(255);
+	background(agent.x, agent.y, agent.x/2);
 	
 	//get the overall volume(between 0 and 1.0)
 	var vol = mic.getLevel();
