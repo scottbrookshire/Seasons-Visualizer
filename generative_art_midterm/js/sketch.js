@@ -12,7 +12,7 @@ var agent;
 function setup(){
 
 	//Create the canvas at window height and width
-	createCanvas(windowWidth, windowHeight);
+	myCanvas = createCanvas(windowWidth, windowHeight);
 
 	agent = createVector(0, 0);
 
@@ -98,10 +98,13 @@ function draw(){
 		
 	TWEEN.update();
 
+	// Window event handler when the browser window size changes
+	// When resized it calls the anonymous function
+	window.onresize = function(){
+	myCanvas.size(windowWidth, windowHeight);
+	}
 	//print(m);
 	
-	
-
 	//print(spectrum[]);
 	
 
