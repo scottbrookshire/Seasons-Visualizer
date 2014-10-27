@@ -9,6 +9,9 @@ var ellipse =[];
 var moving = false;
 var agent;
 
+
+
+	
 function setup(){
 
 	//Create the canvas at window height and width
@@ -54,9 +57,12 @@ function setup(){
 	
 	tween1.start();
 
+
 }
 
 function draw(){
+
+
 
 	background(agent.x, agent.y, agent.x/2);
 	
@@ -64,19 +70,34 @@ function draw(){
 	var vol = mic.getLevel();
 
 	//map the volume to a larger more usable number
-	var m = map(vol, 0, 1, 0, 900);
+	var m = map(vol, 0, 1, 20, 100);
 
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
-
+	
 	//draws a circle that scales with audio level 
 	//translate(windowWidth / 2,windowHeight / 2);
-	fill(random(m,m/2),random(m,m/2),random(m,m/2));
+	
+
+	var colors = [
+	color(70,67,81),		//dark
+	color(194,105,98),		//red
+	color(215,129,136),		//salmon
+	color(171,117,136),		//purp
+	color(235,173,153)		//teal
+	];
+	var r = floor(random(colors.length));
+	if (r <= 0){
+		stop();
+	}
+	fill(colors[r]);
+		
+
 		
 	//draws an ellipse that position is updated by tween and scale is
 	//driven by the amplitude of audio
 	ellipse(width / 2, height / 2,agent.x,agent.y);
-
+	
 	var tileCount = 2;
 	
 	//create a nested loop to draw squares on screen
@@ -106,6 +127,8 @@ function draw(){
 	//print(m);
 	
 	//print(spectrum[]);
+		
+
 	
 
 }
