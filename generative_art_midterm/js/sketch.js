@@ -8,7 +8,7 @@ var fft;
 var ellipse =[];
 var moving = false;
 var agent;
-
+var theta;
 
 
 	
@@ -75,10 +75,8 @@ function draw(){
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
 	
-	//draws a circle that scales with audio level 
-	//translate(windowWidth / 2,windowHeight / 2);
 	
-
+	//Color Palette, example-- fill(colors[r]);
 	var colors = [
 	color(70,67,81),		//dark
 	color(194,105,98),		//red
@@ -91,9 +89,12 @@ function draw(){
 		stop();
 	}
 	fill(colors[r]);
-		
 
-		
+
+
+//	-----------------------------------------------------------	
+//Scene 1 : Shapes
+  if (time < 7.4){	
 	//draws an ellipse that position is updated by tween and scale is
 	//driven by the amplitude of audio
 	ellipse(width / 2, height / 2,agent.x,agent.y);
@@ -114,8 +115,21 @@ function draw(){
 	}
 	
 	
-		
-		
+	
+//	-----------------------------------------------------------	
+//Scene 2 : 	
+ } else if (time > 8.15 && time < 40.5){	
+
+
+
+
+//	-----------------------------------------------------------	
+//Scene 3 : 	
+   } else if (time > 40.5){	
+
+   }
+
+
 		
 	TWEEN.update();
 
@@ -127,8 +141,5 @@ function draw(){
 	//print(m);
 	
 	//print(spectrum[]);
-		
-
-	
 
 }
