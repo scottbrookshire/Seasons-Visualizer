@@ -8,7 +8,7 @@ var fft;
 var ellipse =[];
 var moving = false;
 var agent;
-
+var theta;
 
 
 	
