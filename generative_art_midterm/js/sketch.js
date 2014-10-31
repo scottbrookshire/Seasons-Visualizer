@@ -8,7 +8,11 @@ var fft;
 var ellipse =[];
 var moving = false;
 var agent;
+<<<<<<< Updated upstream
 var theta;
+=======
+var accum =01;
+>>>>>>> Stashed changes
 
 
 	
@@ -38,7 +42,7 @@ function setup(){
 	tween1. to ( {x: 0, y: 0}, 2000);//we initulize tweening values here followed by time in milliseconds
 	tween1.easing( TWEEN.Easing.Sinusoidal.InOut );
 	tween1.onStart(function(){	
-		print("Agent's x: " + agent.x + " y: " + agent.y);
+		//print("Agent's x: " + agent.x + " y: " + agent.y);
 	});
 	tween1.onUpdate(function(){});
     tween1.onComplete(function(){
@@ -49,7 +53,7 @@ function setup(){
     tween2.to( { x: 255 , y: 255}, 2000 );
     tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween2.onStart(function(){
-        print("Agent's x: " + agent.x + " y: " + agent.y);
+        //print("Agent's x: " + agent.x + " y: " + agent.y);
     });
     tween2.onComplete(function(){
         tween1.start();
@@ -61,10 +65,19 @@ function setup(){
 }
 
 function draw(){
+<<<<<<< Updated upstream
 
 
 
 	background(agent.x, agent.y, agent.x/2);
+=======
+	// Blend the old frames into the background
+  	blendMode( BLEND );
+  	fill( agent.x, agent.y);
+  	rect( 0, 0, width, height );
+  	rad = radians( frameCount );
+	//background(agent.x, agent.y, agent.x/2);
+>>>>>>> Stashed changes
 	
 	//get the overall volume(between 0 and 1.0)
 	var vol = mic.getLevel();
@@ -97,8 +110,46 @@ function draw(){
   if (time < 7.4){	
 	//draws an ellipse that position is updated by tween and scale is
 	//driven by the amplitude of audio
+<<<<<<< Updated upstream
 	ellipse(width / 2, height / 2,agent.x,agent.y);
 	
+=======
+	print(spectrum[1]);
+	
+	if (spectrum[1]>=200){
+	push();
+	
+	translate(width / 2, height / 2);
+	var circleResolution = 10;
+	var numVertices = 36;
+	var radius = spectrum[5]*2;
+	strokeWeight( 20 );
+	stroke( m, m );
+	//fill(100,100,100);
+	
+	if( radius % 2 ){
+		rotate( PI / circleResolution / 2 );
+	}else{
+		rotate( PI / circleResolution );
+	}
+	beginShape();
+	for ( var i = 0; i <= circleResolution; i++){
+		
+		var theta = i * TWO_PI / numVertices + accum;
+		var x = 0 + cos(theta + m  ) * radius ;
+		var y = 0 + sin(theta + m )  * radius ;
+		vertex( x , y );
+
+	
+	}
+	endShape();
+	pop();
+	}
+	accum += 1;
+
+	//ellipse(width / 2, height / 2,agent.x,agent.y);
+
+>>>>>>> Stashed changes
 	var tileCount = 2;
 	
 	//create a nested loop to draw squares on screen
@@ -113,6 +164,8 @@ function draw(){
 		}
 
 	}
+
+	
 	
 	
 	
