@@ -8,11 +8,11 @@ var fft;
 var ellipse =[];
 var moving = false;
 var agent;
-<<<<<<< Updated upstream
+
 var theta;
-=======
+
 var accum =01;
->>>>>>> Stashed changes
+
 
 
 	
@@ -65,19 +65,19 @@ function setup(){
 }
 
 function draw(){
-<<<<<<< Updated upstream
+
 
 
 
 	background(agent.x, agent.y, agent.x/2);
-=======
+
 	// Blend the old frames into the background
   	blendMode( BLEND );
   	fill( agent.x, agent.y);
   	rect( 0, 0, width, height );
   	rad = radians( frameCount );
 	//background(agent.x, agent.y, agent.x/2);
->>>>>>> Stashed changes
+
 	
 	//get the overall volume(between 0 and 1.0)
 	var vol = mic.getLevel();
@@ -110,10 +110,10 @@ function draw(){
   if (time < 7.4){	
 	//draws an ellipse that position is updated by tween and scale is
 	//driven by the amplitude of audio
-<<<<<<< Updated upstream
+
 	ellipse(width / 2, height / 2,agent.x,agent.y);
 	
-=======
+
 	print(spectrum[1]);
 	
 	if (spectrum[1]>=200){
@@ -149,7 +149,7 @@ function draw(){
 
 	//ellipse(width / 2, height / 2,agent.x,agent.y);
 
->>>>>>> Stashed changes
+
 	var tileCount = 2;
 	
 	//create a nested loop to draw squares on screen
