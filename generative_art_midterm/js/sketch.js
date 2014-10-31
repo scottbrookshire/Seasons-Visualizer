@@ -4,13 +4,18 @@
 var two;
 var input;
 var analyzer;
-var fft;
 var ellipse =[];
 var moving = false;
 var agent;
 var theta;
 
+ 
+var num=30;
+var scal, sc, theta;
 
+var sound;
+var amp;
+var fft;
 	
 function setup(){
 
@@ -90,11 +95,12 @@ function draw(){
 	}
 	fill(colors[r]);
 
-
+	//Setting the var time to play current time
+	// var time = sound.currentTime();
 
 //	-----------------------------------------------------------	
 //Scene 1 : Shapes
-  if (time < 7.4){	
+  // if (time < 7.4){	
 	//draws an ellipse that position is updated by tween and scale is
 	//driven by the amplitude of audio
 	ellipse(width / 2, height / 2,agent.x,agent.y);
@@ -115,19 +121,33 @@ function draw(){
 	}
 	
 	
-	
+
 //	-----------------------------------------------------------	
 //Scene 2 : 	
- } else if (time > 8.15 && time < 40.5){	
+ // } else if (time > 8.15 && time < 15){	
 
-
+// fill(100);
+//   rect(0, 0, width, height);
+//   scal = map(sin(theta), -1, 1, 70, 100);
+//   sc = map(sin(theta), -1, 1, 3, 10);
+//   for (var i = 0; i < 20; i++) {
+//     var s = ((frameCount+(i*50))/100.0) % 10.0;
+//     for (var j=0; j<num; j++) {
+//       fill(255);
+//       noStroke();
+//       var x = width/2 + cos((TWO_PI/num)*j)*s*scal;
+//       var y = height/2 + sin((TWO_PI/num)*j)*s*scal;
+//       ellipse(x, y, sc, sc);
+//     }
+//   }
+//   theta = TWO_PI;
 
 
 //	-----------------------------------------------------------	
 //Scene 3 : 	
-   } else if (time > 40.5){	
+   // } else if (time > 40.5){	
 
-   }
+   // }
 
 
 		
