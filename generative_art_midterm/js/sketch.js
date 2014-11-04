@@ -1,5 +1,6 @@
 //WNM 498 Generative Art & Creative Code
 //Ryan and Scotts super awesome midterm project
+//with guidance and code help from the Masterfull Ryan Berkey
 
 var numColors = 5;
 var scenes;
@@ -11,7 +12,9 @@ var agent;
 var num = 7;
 var sw = 100;
 var r = 0;
-
+var scenes = [];
+var activeScene = 0;
+var season = 0;
 
 
 var colors = [	
@@ -97,44 +100,74 @@ function setup(){
  //    });
 	
 	// tween1.start();
+	var scene1 = {
+		rectPos: createVector( width / 2, height / 2),
+		rectWidth: 200,
+		rectHeight: 100,
+		rectRotation: 0,
+		r: colors[season][0][0],
+		g: colors[season][0][1],
+		b: colors[season][0][2],
+		animating: false,
+		update: function(){
+			this.rectRotation += radians(1);
+			this.r = colors[season][0][0];
+			this.g = colors[season][0][1];
+			this.b = colors[season][0][2];
+		},
+		display: function(){
+			push();
+			rectMode(CENTER);
+			translate( this.rectPos.x, this.rectPos.y );
 
-
-
-
-
-	scenes = createScenes();
-
-}
-
-
-function createScenes(){
-		var s = [
-		{
-			ellipsexPos: 0,
-			position: createVector(),
-
-			update: function(){ 
-				// if not loaded, then transition
-				//xPosition
-
-			},
-			
-			draw: function(){
-				// draw your shape
-
-				
-			}
-		},{
-			update: function(){
-			}
+			fill( this.r, this.g, this.b);
+			rotate( this.rectRotation );
+			rect( 0, 0, this.rectWidth, this.rectHeight) ;
+			pop();
 		}
-	]
-	return s;
+	};
 
+	scenes.push(scene1);
+
+	var scene2 = {
+		ellipsePos: createVector( width / 2, height / 2),
+		ellipseWidth: 200,
+		ellipseDiameter: 100,
+		r: colors[season][0][0],
+		g: colors[season][0][1],
+		b: colors[season][0][2],
+		animating: false,
+
+		update: function(){
+			this.rectRotation += radians(1);
+			this.r = colors[season][0][0];
+			this.g = colors[season][0][1];
+			this.b = colors[season][0][2];
+		},
+
+		display: function(){
+			push();
+			translate( this.ellipsePos.x, this.ellipsePos.y );
+			rotate( this.rectRotation );
+			fill( this.r, this.g, this.b);
+
+			ellipse( 0, 0, this.ellipseDiameter, this.ellipseDiameter) ;
+			pop();
+		}
+	};
+
+	scenes.push(scene2);
 }
+
+
+
+
+
 
 function draw(){
-
+	background(255);
+	scenes[activeScene].update();
+	scenes[activeScene].display();
 	
 	//background(100,50,50);
 
@@ -149,19 +182,19 @@ function draw(){
 
 	//map the volume to a larger more usable number
 	var m = map(vol, 0, 1, 1, 50);
-	print(m);
+	//print(m);
 
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
 
-	//stroke(colors[1][3]);
+	stroke(colors[1][3]);
 	noFill();
 	strokeWeight(30);
 	strokeCap(SQUARE);	
 	
 	//draw an arc to screen
 	for (i = 0; i<2; i++){
-		arcs(700*m,700/m);
+		arcs(900,900);
 	}
 
 	
@@ -178,6 +211,8 @@ function draw(){
 }
 
 function arcs(){
+		stroke(s1colors);
+
 		//get the overall volume(between 0 and 1.0)
 		var vol = mic.getLevel();
 
@@ -188,19 +223,41 @@ function arcs(){
 		translate(width/2, height/2);
 		rotate(TWO_PI);
 		for (i=0; i < num; i++){
-			stroke(360/num*i, 100, 100, 140);
-			var start = TWO_PI * m;
-			var end = start + TWO_PI /m;
-			var scale = map(sin(r+TWO_PI/num*i), -1, 1, .1, 1);
+			stroke(360/num*i, 100/m, 100/m, 140/m);
+			var start = TWO_PI+i*r+m;
+			var end = start + TWO_PI * m;
+			var scale = map(sin(r+TWO_PI/num+i), -1, 1, .1, .5);
 			
 			
 			arc(0, 0, 700 -i * sw, 700 - i *sw, start, end*scale);
 			//arc(0, 0, width*.9 -i * sw , height*.9-i*3*sw, start, end*scale);
 
 		}
-		r += .0523/2;
+		r += .0323/2;
 		pop();
 	}
+function keyTyped(){
+	switch( key ){
+		case "1":
+			activeScene = 0;
+			print(activeScene);
+			break;
+		case "2":
+			activeScene = 1;
+			print(activeScene);
+			break;
+		case " ": // Space Bar
+			if (season >= colors.length - 1){
+				season = 0;
+			}else{
+				season++;
+			}
+			break;
+		default:
+			break;
+	}
+
+}
 
 // if mic amplitude is greater than .75 micCount += 1;
 // if micCount > 4 then sceneNumber += 1;
