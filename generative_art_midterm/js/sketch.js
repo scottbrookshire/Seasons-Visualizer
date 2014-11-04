@@ -7,6 +7,13 @@ var input;
 var fft;
 var theta;
 var agent;
+
+var num = 7;
+var sw = 100;
+var r = 0;
+
+
+
 var colors = [	
 	[	//Spring
 		[239, 128, 67], //deep orange
@@ -94,6 +101,7 @@ function setup(){
 
 
 
+
 	scenes = createScenes();
 
 }
@@ -140,12 +148,23 @@ function draw(){
 	var vol = mic.getLevel();
 
 	//map the volume to a larger more usable number
-	var m = map(vol, 0, 1, 20, 100);
+	var m = map(vol, 0, 1, 1, 50);
+	print(m);
 
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
 
-	ellipse(width/2,height/2, 255,255);
+	//stroke(colors[1][3]);
+	noFill();
+	strokeWeight(30);
+	strokeCap(SQUARE);	
+	//draw an arc to screen
+	for (i = 0; i<3; i++){
+		arcs(700,700);
+	}
+
+	
+	// ellipse(width/2,height/2, 255,255);
 				
 	TWEEN.update();
 
@@ -156,6 +175,31 @@ function draw(){
 	}
 
 }
+
+function arcs(){
+		//get the overall volume(between 0 and 1.0)
+		var vol = mic.getLevel();
+
+		//map the volume to a larger more usable number
+		var m = map(vol, 0, 1, 1, 5);
+
+		push();
+		translate(width/2, height/2);
+		rotate(TWO_PI);
+		for (i=0; i < num; i++){
+			stroke(360/num*i, 100, 100, 140);
+			var start = TWO_PI * m;
+			var end = start + TWO_PI /m;
+			var scale = map(sin(r+TWO_PI/num*i), -1, 1, .1, 1);
+			
+			
+			arc(0, 0, 700 -i * sw, 700 - i *sw, start, end*scale);
+			//arc(0, 0, width*.9 -i * sw , height*.9-i*3*sw, start, end*scale);
+
+		}
+		r += .0523/2;
+		pop();
+	}
 
 // if mic amplitude is greater than .75 micCount += 1;
 // if micCount > 4 then sceneNumber += 1;
