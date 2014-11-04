@@ -57,25 +57,21 @@ var s4colors; //winter
 function setup(){
 	//Create the canvas at window height and width
 	myCanvas = createCanvas(windowWidth, windowHeight);
-	
-	//create an audio input
+
 	mic = new p5.AudioIn();
-	
-	//start the audio input
 	mic.start();
-
-
-	s1colors = colors[0][int(random(0,4))];
-	s2colors = colors[1][int(random(0,4))];
-	s3colors = colors[2][int(random(0,4))];
-	s4colors = colors[3][int(random(0,4))];
 
 	//creates a new fast fourier transformation that isolates individual audio
 	//frequencies within a waveform. new p5.FFT([smoothing],[bins])
 	fft = new p5.FFT([.8],[16]);
-
-	//set the input for the frequency analyze to the microphone
 	fft.setInput(mic);
+
+
+	// COLORS! To randomly set colors just put s1colors. Example: fill(s3colors). Randomly chooes colors from season 3 (Fall).
+	s1colors = colors[0][int(random(0,4))];
+	s2colors = colors[1][int(random(0,4))];
+	s3colors = colors[2][int(random(0,4))];
+	s4colors = colors[3][int(random(0,4))];
 
 	// //set up tweening objects
 	// var tween1 = new TWEEN.Tween(agent);
@@ -157,6 +153,35 @@ function setup(){
 	};
 
 	scenes.push(scene2);
+
+	var scene3 = {
+		rectPos: createVector( width / 2, height / 2),
+		rectWidth: 500,
+		rectHeight: 100,
+		rectRotation: 0,
+		r: colors[season][0][0],
+		g: colors[season][0][1],
+		b: colors[season][0][2],
+		animating: false,
+		update: function(){
+			this.rectRotation += radians(1);
+			this.r = colors[season][0][0];
+			this.g = colors[season][0][1];
+			this.b = colors[season][0][2];
+		},
+		display: function(){
+			push();
+			rectMode(CENTER);
+			translate( this.rectPos.x, this.rectPos.y );
+
+			fill( this.r, this.g, this.b);
+			rotate( this.rectRotation );
+			rect( 0, 0, this.rectWidth, this.rectHeight) ;
+			pop();
+		}
+	};
+
+	scenes.push(scene3);
 }
 
 
@@ -165,11 +190,6 @@ function setup(){
 
 
 function draw(){
-	background(255);
-	scenes[activeScene].update();
-	scenes[activeScene].display();
-	
-	//background(100,50,50);
 
 	// Blend the old frames into the background
 	blendMode( BLEND );
@@ -180,9 +200,8 @@ function draw(){
   	//get the overall volume(between 0 and 1.0)
 	var vol = mic.getLevel();
 
-	//map the volume to a larger more usable number
-	var m = map(vol, 0, 1, 1, 50);
-	//print(m);
+	var m = map(vol, 0, 1, 1, 5);
+	// print(m);
 
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
@@ -192,50 +211,72 @@ function draw(){
 	strokeWeight(30);
 	strokeCap(SQUARE);	
 	
-	//draw an arc to screen
-	for (i = 0; i<2; i++){
-		arcs(900,900);
+	// //draw an arc to screen
+	// for (i = 0; i<2; i++){
+	// 	arcs(900,900);
+	// }
+
+
+
+
+
+	if (m < 2){	
+		activeScene = 0;
+		print(activeScene);
+
+	} else if (m > 2 && m < 5){
+		activeScene = 1;
+		print(activeScene);
+
 	}
 
-	
-	// ellipse(width/2,height/2, 255,255);
-				
+
+
+
+
+
+
+	// necessary for tween animations			
 	TWEEN.update();
 
-	// Window event handler when the browser window size changes
-	// When resized it calls the anonymous function
+	//Correlation between scenes[]; and activeScene change.
+	scenes[activeScene].update();
+	scenes[activeScene].display();
+
+	// Window resizes
 	window.onresize = function(){
 	myCanvas.size(windowWidth, windowHeight);
 	}
-
 }
 
-function arcs(){
-		stroke(s1colors);
+// function arcs(){
+// 		stroke(s1colors);
 
-		//get the overall volume(between 0 and 1.0)
-		var vol = mic.getLevel();
+// 		//get the overall volume(between 0 and 1.0)
+// 		var vol = mic.getLevel();
 
-		//map the volume to a larger more usable number
-		var m = map(vol, 0, 1, 1, 5);
+// 		//map the volume to a larger more usable number
+// 		var m = map(vol, 0, 1, 1, 5);
 
-		push();
-		translate(width/2, height/2);
-		rotate(TWO_PI);
-		for (i=0; i < num; i++){
-			stroke(360/num*i, 100/m, 100/m, 140/m);
-			var start = TWO_PI+i*r+m;
-			var end = start + TWO_PI * m;
-			var scale = map(sin(r+TWO_PI/num+i), -1, 1, .1, .5);
+// 		push();
+// 		translate(width/2, height/2);
+// 		rotate(TWO_PI);
+// 		for (i=0; i < num; i++){
+// 			stroke(360/num*i, 100/m, 100/m, 140/m);
+// 			var start = TWO_PI+i*r+m;
+// 			var end = start + TWO_PI * m;
+// 			var scale = map(sin(r+TWO_PI/num+i), -1, 1, .1, .5);
 			
 			
-			arc(0, 0, 700 -i * sw, 700 - i *sw, start, end*scale);
-			//arc(0, 0, width*.9 -i * sw , height*.9-i*3*sw, start, end*scale);
+// 			arc(0, 0, 700 -i * sw, 700 - i *sw, start, end*scale);
+// 			//arc(0, 0, width*.9 -i * sw , height*.9-i*3*sw, start, end*scale);
 
-		}
-		r += .0323/2;
-		pop();
-	}
+// 		}
+// 		r += .0323/2;
+// 		pop();
+// 	}
+
+
 function keyTyped(){
 	switch( key ){
 		case "1":
@@ -246,11 +287,16 @@ function keyTyped(){
 			activeScene = 1;
 			print(activeScene);
 			break;
+		case "3":
+			activeScene = 2;
+			print(activeScene);
+			break;
 		case " ": // Space Bar
 			if (season >= colors.length - 1){
 				season = 0;
 			}else{
 				season++;
+				//reminder to input text that says what season user changed to
 			}
 			break;
 		default:
@@ -288,3 +334,7 @@ function keyTyped(){
 // seasons[0][0].animate();
 
 // seasons[1][0]
+
+// Scotts super secret note to self on Tues Nov 4th.
+// Make two scenes that both TWEEN!!! 
+// Include draw script Icon in at least 1!!!
