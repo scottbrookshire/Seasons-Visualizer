@@ -8,35 +8,41 @@ var fft;
 var theta;
 var agent;
 var colors = [	
-	[
+	[	//Spring
+		[239, 128, 67], //deep orange
+		[237, 154, 98], //muted orange
+		[104, 214, 147], //light green
+		[63, 154, 130], //dark green
+		[160, 215, 226] //light blue
+	],
+	[	//Summer
+		[ 196, 87, 87], //red
+		[ 249, 115, 115], //red orange
+		[ 255, 153, 102], //orange
+		[ 255, 204, 102], // yellow
+		[ 255, 255, 153]  //light yellow
+	],
+	[	//Fall
 		[70, 67, 81], //dark
 		[194, 105, 98], //red
 		[215, 129, 136], //salmon
 		[171, 117, 136], //purp
 		[235, 173, 153] //teal
 	],
-	[
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50] 
-	],
-	[
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50] 
-	],
-	[
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50], 
-		[ 50, 50, 50] 
+	[	//Winter
+		[ 34, 72, 96], //dark blue
+		[ 66, 107, 131], //navy blue
+		[ 55, 134, 153], //middle blue
+		[ 168, 202, 218], //light blue
+		[ 160, 215, 226]  //lighter blue
 	]  	 
 ];
+
+var s1colors;
+var s2colors;
+var s3colors;
+var s4colors;
+
 
 function setup(){
 	//Create the canvas at window height and width
@@ -44,9 +50,15 @@ function setup(){
 	
 	//create an audio input
 	mic = new p5.AudioIn();
-
+	
 	//start the audio input
 	mic.start();
+
+
+	s1colors = colors[0][int(random(0,4))];
+	s2colors = colors[0][int(random(0,4))];
+	s3colors = colors[0][int(random(0,4))];
+	s4colors = colors[0][int(random(0,4))];
 
 	//creates a new fast fourier transformation that isolates individual audio
 	//frequencies within a waveform. new p5.FFT([smoothing],[bins])
@@ -114,12 +126,13 @@ function createScenes(){
 }
 
 function draw(){
+
 	
 	//background(100,50,50);
 
 	// Blend the old frames into the background
 	blendMode( BLEND );
-  	fill( colors[0][1]);
+  	fill( s1colors);
   	rect( 0, 0, width, height );
   	rad = radians( frameCount );
 				
