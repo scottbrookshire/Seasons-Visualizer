@@ -45,10 +45,10 @@ var colors = [
 	]  	 
 ];
 
-var s1colors;
-var s2colors;
-var s3colors;
-var s4colors;
+var s1colors; //spring
+var s2colors; //summer
+var s3colors; // fall 
+var s4colors; //winter
 
 
 function setup(){
