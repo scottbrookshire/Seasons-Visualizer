@@ -63,9 +63,9 @@ function setup(){
 
 
 	s1colors = colors[0][int(random(0,4))];
-	s2colors = colors[0][int(random(0,4))];
-	s3colors = colors[0][int(random(0,4))];
-	s4colors = colors[0][int(random(0,4))];
+	s2colors = colors[1][int(random(0,4))];
+	s3colors = colors[2][int(random(0,4))];
+	s4colors = colors[3][int(random(0,4))];
 
 	//creates a new fast fourier transformation that isolates individual audio
 	//frequencies within a waveform. new p5.FFT([smoothing],[bins])
@@ -140,7 +140,7 @@ function draw(){
 
 	// Blend the old frames into the background
 	blendMode( BLEND );
-  	fill( s1colors);
+  	fill( s3colors);
   	rect( 0, 0, width, height );
   	rad = radians( frameCount );
 				
@@ -158,9 +158,10 @@ function draw(){
 	noFill();
 	strokeWeight(30);
 	strokeCap(SQUARE);	
+	
 	//draw an arc to screen
-	for (i = 0; i<3; i++){
-		arcs(700,700);
+	for (i = 0; i<2; i++){
+		arcs(700*m,700/m);
 	}
 
 	
