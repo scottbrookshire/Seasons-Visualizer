@@ -463,11 +463,11 @@ function arcs(){
 
 function drawRaster ()
 {
-  var rows = 7;
-  var columns = 5;
+  var rows = 5;
+  var columns = 6;
  
   var margin = 100;    
-  var padding = 45;    
+  var padding = 50;    
  
   var totalSpaceWidth = width - 2*margin - (columns-1)*padding;
   var totalSpaceHeight = height - 2*margin - (rows-1)*padding;
@@ -493,11 +493,11 @@ var vol = mic.getLevel();
     while (j < columns)
     {
       var x = margin + j*(rectWidth+padding);
-      fill(360/num*i, 500/m, 500/m, 500/m);
+      fill(360/num*i, 500/m, 500/m, 600/m);
       noStroke();
       var offSet = TWO_PI/columns*(j+i);
       var h = 50;
-      rect (x, rectHeight+y-h, rectWidth, m*10 );
+      rect (x, rectHeight+y, rectWidth, m*-10 );
       fill (20);
       j = j +1;
     }
