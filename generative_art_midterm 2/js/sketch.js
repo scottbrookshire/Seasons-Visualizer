@@ -152,8 +152,8 @@ function setup(){
 		r: colors[season][02][0],
 		g: colors[season][2][1],
 		b: colors[season][2][2],
-		num: 50,
 		animating: false,
+		theta: 0,
 
 		update: function(){
 			this.ellipseSize = width/this.elNumb;
@@ -166,15 +166,15 @@ function setup(){
 			for(i = 0; i<(this.elNumb + 2); i++){
 				var offset = (TWO_PI/this.elNumb*i)*2;
 				var xPos = width/this.elNumb *i;
-				var yPos = y = map(sin( theta+offset), -1, 1, height/2-this.amplitude/2, height/2+this.amplitude/2);
-				var f = map(sin(theta/2+offset/4),-1,1,0,255);
-				fill (f, this.g, this.b);
+				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2, height/2+this.amplitude/2);
+				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
+				//fill (f, this.g, this.b);
 				ellipse(xPos, yPos, 30, 30 );
 			
 			}	
 		
 			
-			theta = 0.6;
+			this.theta += 0.06;
 		
 		}
 
