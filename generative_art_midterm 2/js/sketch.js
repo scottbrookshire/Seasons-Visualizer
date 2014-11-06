@@ -175,29 +175,11 @@ function setup(){
 	scenes.push(scene1);
 
 	var scene2 = {
-		ellipsePos: createVector( width / 2, height / 2),
-		ellipseWidth: 200,
-		ellipseDiameter: 100,
-		r: colors[season][0][0],
-		g: colors[season][0][1],
-		b: colors[season][0][2],
-		animating: false,
-
 		update: function(){
-			this.rectRotation += radians(1);
-			this.r = colors[season][0][0];
-			this.g = colors[season][0][1];
-			this.b = colors[season][0][2];
 		},
 
 		display: function(){
-			push();
-			translate( this.ellipsePos.x, this.ellipsePos.y );
-			rotate( this.rectRotation );
-			fill( this.r, this.g, this.b);
-
-			ellipse( 0, 0, this.ellipseDiameter, this.ellipseDiameter) ;
-			pop();
+			drawRaster();
 		}
 	};
 
@@ -293,41 +275,40 @@ function draw(){
 
 	// }
 
-	time = second()/5 %5;
+	// var t = map(vol, 0, 1, .1  , .9);
+	time = floor(second()/5 %5);
 	// print(time);
 
 
 
-
-
-	switch( time ){
-		case 1:
-			activeScene = 0;
-			print(activeScene);
-			break;
-		case 2:
-			activeScene = 1;
-			print(activeScene);
-			break;
-		case 3:
-			activeScene = 2;
-			print(activeScene);
-			break;
-		case 4:
-			activeScene = 3;
-			print(activeScene);
-			break;
-		case 5:
-			activeScene = 4;
-			print(activeScene);
-			break;
-		case 6:
-			activeScene = 5;
-			print(activeScene);
-			break;
-				default:
-			break;
-	}
+	// switch( time ){
+	// 	case 1:
+	// 		activeScene = 0;
+	// 		print(activeScene);
+	// 		break;
+	// 	case 2:
+	// 		activeScene = 1;
+	// 		print(activeScene);
+	// 		break;
+	// 	case 3:
+	// 		activeScene = 2;
+	// 		print(activeScene);
+	// 		break;
+	// 	case 4:
+	// 		activeScene = 3;
+	// 		print(activeScene);
+	// 		break;
+	// 	case 5:
+	// 		activeScene = 4;
+	// 		print(activeScene);
+	// 		break;
+	// 	case 6:
+	// 		activeScene = 5;
+	// 		print(activeScene);
+	// 		break;
+	// 			default:
+	// 		break;
+	// }
 
 
 
@@ -369,7 +350,51 @@ function arcs(){
 		r += .0323/2;
 		pop();
 	}
+//draws squares
+function drawRaster ()
+{
+  var rows = 7;
+  var columns = 5;
+ 
+  var margin = 50;    
+  var padding = 20;    
+ 
+  var totalSpaceWidth = width - 2*margin - (columns-1)*padding;
+  var totalSpaceHeight = height - 2*margin - (rows-1)*padding;
+ 
+  var rectWidth = float(totalSpaceWidth) / columns;
+  var rectHeight = float(totalSpaceHeight) / rows;
 
+  var spectrum = fft.analyze();
+
+  var i = 0;
+
+var vol = mic.getLevel();
+
+		//map the volume to a larger more usable number
+		var m = map(vol, 0, 1, 5, 15)
+ 
+  while (i < rows)
+  {
+    var y = margin + i * (rectHeight + padding) ;
+    var j = 0;
+    // var f = lerpColor(#FFEC39, #FF6439, 1.0/rows*i);
+
+    while (j < columns)
+    {
+      var x = margin + j*(rectWidth+padding);
+      fill(360/num*i, 500/m, 500/m, 500/m);
+      noStroke();
+      var offSet = TWO_PI/columns*(j+i);
+      var h = 50;
+      rect (x, rectHeight+y-h, rectWidth, m*10 );
+      fill (20);
+      j = j +1;
+    }
+ 
+    i = i + 1;
+  }
+}
 
 function keyTyped(){
 	switch( key ){
