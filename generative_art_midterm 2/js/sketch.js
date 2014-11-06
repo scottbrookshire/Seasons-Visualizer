@@ -147,7 +147,7 @@ function setup(){
 
 	var scene1 = {
 		ellipseSize: null,
-		elNumb: 40,
+		elNumb: 25,
 		amplitude: 290,
 		r: colors[season][02][0],
 		g: colors[season][2][1],
@@ -162,15 +162,19 @@ function setup(){
 			this.b = colors[season][2][2];
 		},
 		display: function(){
+
+			var vol = mic.getLevel();
+			var m = map(vol, 0, 1, 1, 5);
+			var mStroke = map(vol, 0, 1, .5, 15);
 			
 			for(i = 0; i<(this.elNumb + 2); i++){
 				var offset = (TWO_PI/this.elNumb*i)*2;
 				var xPos = width/this.elNumb *i;
 				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2, height/2+this.amplitude/2);
 				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
-				fill (f, this.g, this.b);
+				fill(360/num*i, 100/m, 100/m, 165/m);
 				noStroke();
-				ellipse(xPos, yPos, this.ellipseSize, this.ellipseSize );
+				ellipse(xPos, yPos, this.ellipseSize*m, this.ellipseSize*m );
 			
 			}	
 		
@@ -380,7 +384,7 @@ function draw(){
 
 
 	// var t = map(vol, 0, 1, .1  , .9);
-	//time = floor(second()/5 %5);
+	// time = floor(second()/5 %5);
 	// print(time);
 
 
