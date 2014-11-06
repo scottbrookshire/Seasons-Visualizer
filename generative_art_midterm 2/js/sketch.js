@@ -195,29 +195,44 @@ function setup(){
 	scenes.push(scene2);
 
 	var scene3 = {
-		rectPos: createVector( width / 2, height / 2),
-		rectWidth: 500,
-		rectHeight: 100,
-		rectRotation: 0,
-		r: colors[season][0][0],
-		g: colors[season][0][1],
-		b: colors[season][0][2],
+		
 		animating: false,
 		update: function(){
-			this.rectRotation += radians(1);
-			this.r = colors[season][0][0];
-			this.g = colors[season][0][1];
-			this.b = colors[season][0][2];
 		},
 		display: function(){
-			push();
-			rectMode(CENTER);
-			translate( this.rectPos.x, this.rectPos.y );
+			var num = 10;
+			var maxFrameCount = 120;
+			var t = frameCount/maxFrameCount;
+			var theta = TWO_PI*t;
+			translate(width/2, height/2);
+			rotate(theta/num);
+			var vol = mic.getLevel();
+			var m = map(vol, 0, 1, 1, 4);
+			var mVol = map(vol, 0, 1, .4, 1);
 
-			fill( this.r, this.g, this.b);
-			rotate( this.rectRotation );
-			rect( 0, 0, this.rectWidth, this.rectHeight) ;
-			pop();
+			 for (var i=0; i<num; i++) {
+			    push();
+			    var offSet = TWO_PI/num*i;
+			    rotate(offSet);
+			    var sz = map(sin(theta+offSet), -1, 1, 150, 200);
+			    var x = 300;
+			    fill(360/num*i, 100/m, 100/m, 120/m);
+			    noStroke();
+			    ellipse(x, 0, sz*mVol, sz*mVol);
+			    var sz2 = map(sin(-theta+offSet), -1, 1, 90, 100);
+			    var x2 = 150;
+			    ellipse(x2, 0, sz2*mVol, sz2*mVol);
+			    pop();
+			  }
+			
+
+
+			// rectMode(CENTER);
+			// translate( this.rectPos.x, this.rectPos.y );
+			// fill( this.r, this.g, this.b);
+			// rotate( this.rectRotation );
+			// rect( 0, 0, this.rectWidth, this.rectHeight) ;
+			
 		}
 	};
 
@@ -246,16 +261,40 @@ function setup(){
 	var scene5 = {
 		
 		animating: false,
-		
 		update: function(){
-		
+
+			
 		},
-		
 		display: function(){
-			ellipse(width/2,height/2,50,50);	
+			var minRes = 3;
+			var maxRes = 30;
+			translate( width / 2, height / 2 );
+			// Set how many points the circle will have
+			var circleResolution = floor( map( mouseY, 0, height, minRes, maxRes ) );
+			var radius = mouseX - width / 2;
+			var angle = TWO_PI / circleResolution;
+			strokeWeight(0 );
+			stroke(0);
+			fill(0);
+
+			if( circleResolution % 2 ){
+				rotate( PI / circleResolution / 2 );
+			}else{
+				rotate( PI / circleResolution );
+			}
+			
+			beginShape();
+			for ( var i = 0; i <= circleResolution; i++ ){
+
+				var x = 0 + cos( angle * i ) * radius;
+				var y = 0 + sin( angle * i ) * radius;
+				vertex ( x, y );
+
+			}
+			endShape();
 		}
 	};
-	
+
 	scenes.push(scene5);
 
 	var scene6 = {
@@ -394,8 +433,6 @@ function arcs(){
 
 		//get the overall volume(between 0 and 1.0)
 		var vol = mic.getLevel();
-
-		//map the volume to a larger more usable number
 		var m = map(vol, 0, 1, 1, 5);
 
 		push();
@@ -422,8 +459,8 @@ function drawRaster ()
   var rows = 7;
   var columns = 5;
  
-  var margin = 50;    
-  var padding = 20;    
+  var margin = 100;    
+  var padding = 45;    
  
   var totalSpaceWidth = width - 2*margin - (columns-1)*padding;
   var totalSpaceHeight = height - 2*margin - (rows-1)*padding;
