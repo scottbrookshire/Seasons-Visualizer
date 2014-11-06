@@ -234,7 +234,7 @@ function setup(){
 		},
 		
 		display: function(){
-			//draw an arc to screen
+			//draw arcs to screen
 			for (i = 0; i<2; i++){
 			arcs(900,900);
 			}		
@@ -242,6 +242,36 @@ function setup(){
 	};
 	
 	scenes.push(scene4);
+
+	var scene5 = {
+		
+		animating: false,
+		
+		update: function(){
+		
+		},
+		
+		display: function(){
+			ellipse(width/2,height/2,50,50);	
+		}
+	};
+	
+	scenes.push(scene5);
+
+	var scene6 = {
+		
+		animating: false,
+		
+		update: function(){
+		
+		},
+		
+		display: function(){
+			triangle(width/2,height/2,50,50, 50, 50);	
+		}
+	};
+	
+	scenes.push(scene6);
 
 }
 
@@ -375,6 +405,7 @@ function arcs(){
 		r += .0323/2;
 		pop();
 	}
+
 //draws squares
 
 function drawRaster ()
