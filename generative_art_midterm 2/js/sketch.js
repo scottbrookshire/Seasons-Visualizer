@@ -20,6 +20,7 @@ var scenes = [];
 var activeScene = 3;
 var season = 0;
 
+var peakCount = 0;
 
 var colors = [	
 	[	//Spring
@@ -333,20 +334,31 @@ function setup(){
 	//begin scene 7
 	var scene7 = {
 		
+		rectPos: createVector( width / 2, height / 2),
+		rectWidth: width/1.2,
+		rectHeight: 100,
+	
+		r: colors[season][0][0],
+		g: colors[season][0][1],
+		b: colors[season][0][2],
 		animating: false,
-		
 		update: function(){
-		this.r = colors[season][2][0];
-		this.g = colors[season][2][1];
-		this.b = colors[season][2][2];
+		
+			this.r = colors[season][0][0];
+			this.g = colors[season][0][1];
+			this.b = colors[season][0][2];
 		},
-
-		
-		
 		display: function(){
-		fill();
-		rect(width/2, height/2, 50, 50);
-			
+			push();
+			rectMode(CENTER);
+			translate( this.rectPos.x, this.rectPos.y );
+			var vol = mic.getLevel();
+			noStroke();
+			var m = map(vol, 0, 1, 1, 3);
+			fill(360/num*i, 100/m, 100/m, 140/m);
+		
+			rect( 0, 0, this.rectWidth, this.rectHeight*m) ;
+			pop();
 		}
 	};
 	
@@ -358,16 +370,32 @@ function setup(){
 		animating: false,
 		
 		update: function(){
-		this.r = colors[season][2][0];
-		this.g = colors[season][2][1];
-		this.b = colors[season][2][2];
+		
 		},
 
 		
 		
 		display: function(){
-		fill();
-		rect(width/2, height/2, 50, 50);
+		translate(0, height);
+		var freq = fft.analyze();
+		var vol = mic.getLevel();
+		var m = map(vol, 0, 1, 1, 3);
+
+		// var c1 = color(255, 0, 0);
+		// var c2 = color(0, 0, 255);
+
+		for ( var i = 0; i < freq.length; i++ ){
+			var x = width / freq.length * i;
+			var y = 0;
+			noStroke();
+			// var c = lerpColor(c1, c2, i / freq.length);
+				
+			fill(360/num*i, 100/m, 100/m, 140/m);
+
+			rect( x, y, width / freq.length, -freq[i]*5 );
+		}
+
+
 			
 		}
 	};
@@ -414,6 +442,21 @@ function draw(){
 
 
 
+	//AHHHHH!H!HHASIAJDSFLASDHGLKHA!!!!!!
+
+	if (vol > .25){
+		peakCount++;
+		print(vol);
+	} 
+
+	if (peakCount > 3){
+			peakCount = 0;
+			activeScene++;
+	}
+	if (activeScene>=scenes.length){
+			activeScene=0;
+	}
+
 
 
 
@@ -422,6 +465,8 @@ function draw(){
 	// 	accum++;
 	// } 
 	// print(accum);
+
+
 	// if (m < 1.5){	
 	// 	activeScene = 0;
 	// 	print(activeScene);
