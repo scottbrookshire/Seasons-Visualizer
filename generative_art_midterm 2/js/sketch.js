@@ -259,15 +259,26 @@ function setup(){
 	scenes.push(scene5);
 
 	var scene6 = {
+		num: 10,
+		startDiam: [],
+		diam: [],
+		incrDiam:0,
 		
 		animating: false,
 		
 		update: function(){
+			this.r = colors[season][3][0];
+			this.g = colors[season][3][1];
+			this.b = colors[season][3][2];
 		
 		},
 		
 		display: function(){
-			triangle(width/2,height/2,50,50, 50, 50);	
+			for(i=0; i<30; i++){
+				var s = (frameCount + (i+80))/100 %10;
+				ellipse(width/2, height/2, s*300, s*300);
+
+			}
 		}
 	};
 	
