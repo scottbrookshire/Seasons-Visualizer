@@ -156,7 +156,7 @@ function setup(){
 		theta: 0,
 
 		update: function(){
-			this.ellipseSize = width/this.elNumb;
+			this.ellipseSize = width/this.elNumb-10;
 			this.r = colors[season][2][0];
 			this.g = colors[season][2][1];
 			this.b = colors[season][2][2];
@@ -168,8 +168,9 @@ function setup(){
 				var xPos = width/this.elNumb *i;
 				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2, height/2+this.amplitude/2);
 				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
-				//fill (f, this.g, this.b);
-				ellipse(xPos, yPos, 30, 30 );
+				fill (f, this.g, this.b);
+				noStroke();
+				ellipse(xPos, yPos, this.ellipseSize, this.ellipseSize );
 			
 			}	
 		
