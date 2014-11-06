@@ -17,7 +17,7 @@ var num = 7;
 var sw = 100;
 var r = 0;
 var scenes = [];
-var activeScene = 0;
+var activeScene = 3;
 var season = 0;
 
 
@@ -89,7 +89,7 @@ function setup(){
     tween1.to( { r: 70, g:67, b: 98 }, 3000 );
     tween1.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween1.onStart(function(){
-        print("color: " + agent.r);
+        //print("color: " + agent.r);
     });
     tween1.onUpdate(function(){});
     tween1.onComplete(function(){
@@ -110,7 +110,7 @@ function setup(){
     tween3.to( { r:215, g:129, b:136 }, 3000 );
     tween3.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween3.onStart(function(){
-        print("color: " + agent.r);
+        //print("color: " + agent.r);
     });
     tween3.onComplete(function(){
         tween4.start();
@@ -144,7 +144,7 @@ function setup(){
 
 
 
-
+	//begin scene 1
 	var scene1 = {
 		ellipseSize: null, 
 		elNumb: 25,
@@ -187,7 +187,7 @@ function setup(){
 
 	scenes.push(scene1);
 
-	
+	//begin scene 2
 	var scene2 = {
 		update: function(){
 		},
@@ -199,6 +199,7 @@ function setup(){
 
 	scenes.push(scene2);
 
+	//begin scene 3
 	var scene3 = {
 		
 		animating: false,
@@ -244,7 +245,7 @@ function setup(){
 	scenes.push(scene3);
 
 
-
+	//begin scene 4
 	var scene4 = {
 		
 		animating: false,
@@ -263,6 +264,7 @@ function setup(){
 	
 	scenes.push(scene4);
 
+	//begin scene 5
 	var scene5 = {
 		
 		animating: false,
@@ -327,6 +329,53 @@ function setup(){
 	};
 	
 	scenes.push(scene6);
+
+	//begin scene 7
+	var scene7 = {
+		
+		animating: false,
+		
+		update: function(){
+		this.r = colors[season][2][0];
+		this.g = colors[season][2][1];
+		this.b = colors[season][2][2];
+		},
+
+		
+		
+		display: function(){
+		fill();
+		rect(width/2, height/2, 50, 50);
+			
+		}
+	};
+	
+	scenes.push(scene7);
+
+	//begin scene 8
+	var scene8 = {
+		
+		animating: false,
+		
+		update: function(){
+		this.r = colors[season][2][0];
+		this.g = colors[season][2][1];
+		this.b = colors[season][2][2];
+		},
+
+		
+		
+		display: function(){
+		fill();
+		rect(width/2, height/2, 50, 50);
+			
+		}
+	};
+	
+	scenes.push(scene8);
+
+
+
 
 }
 
@@ -415,6 +464,15 @@ function draw(){
 			activeScene = 5;
 			print(activeScene);
 			break;
+		case 7:
+			activeScene = 6;
+			print(activeScene);
+			break;
+		case 8:
+			activeScene = 7;
+			print(activeScene);
+			break;
+
 				default:
 			break;
 	}
@@ -530,6 +588,14 @@ function keyTyped(){
 			break;
 		case "6":
 			activeScene = 5;
+			print(activeScene);
+			break;
+		case "7":
+			activeScene = 6;
+			print(activeScene);
+			break;
+		case "8":
+			activeScene = 7;
 			print(activeScene);
 			break;
 		case " ": // Space Bar
