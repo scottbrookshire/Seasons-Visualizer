@@ -13,7 +13,7 @@ var num = 7;
 var sw = 100;
 var r = 0;
 var scenes = [];
-var activeScene = 0;
+var activeScene = 1;
 var season = 0;
 
 
@@ -201,7 +201,7 @@ function draw(){
 	var vol = mic.getLevel();
 
 	var m = map(vol, 0, 1, 1, 5);
-	// print(m);
+	print(m);
 
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
@@ -220,7 +220,7 @@ function draw(){
 
 
 
-	if (m < 2){	
+	if (m > 1.5){	
 		activeScene = 0;
 		print(activeScene);
 
