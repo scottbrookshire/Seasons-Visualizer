@@ -156,7 +156,7 @@ function setup(){
 		theta: 0,
 
 		update: function(){
-			this.ellipseSize = width/this.elNumb-20;
+			this.ellipseSize = width/this.elNumb-25;
 			this.r = colors[season][2][0];
 			this.g = colors[season][2][1];
 			this.b = colors[season][2][2];
