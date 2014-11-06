@@ -146,9 +146,9 @@ function setup(){
 
 
 	var scene1 = {
-		ellipseSize: null,
+		ellipseSize: null, 
 		elNumb: 25,
-		amplitude: 290,
+		amplitude: 30,
 		r: colors[season][02][0],
 		g: colors[season][2][1],
 		b: colors[season][2][2],
@@ -156,7 +156,7 @@ function setup(){
 		theta: 0,
 
 		update: function(){
-			this.ellipseSize = width/this.elNumb-10;
+			this.ellipseSize = width/this.elNumb-20;
 			this.r = colors[season][2][0];
 			this.g = colors[season][2][1];
 			this.b = colors[season][2][2];
@@ -170,9 +170,9 @@ function setup(){
 			for(i = 0; i<(this.elNumb + 2); i++){
 				var offset = (TWO_PI/this.elNumb*i)*2;
 				var xPos = width/this.elNumb *i;
-				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2, height/2+this.amplitude/2);
+				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2*mStroke, height/2+this.amplitude/2*mStroke);
 				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
-				fill(360/num*i, 100/m, 100/m, 165/m);
+				fill(360/num*i, 100/m, 100/m, 190/m);
 				noStroke();
 				ellipse(xPos, yPos, this.ellipseSize*m, this.ellipseSize*m );
 			
@@ -300,6 +300,7 @@ function setup(){
 
 	scenes.push(scene5);
 
+	//begin scene 6
 	var scene6 = {
 		
 		animating: false,
@@ -311,14 +312,14 @@ function setup(){
 		display: function(){
 
 			var vol = mic.getLevel();
-			var m = map(vol, 0, 1, 1, 4);
-			var mCircle = map(vol, 0, 1, .005, .001);
+			var m = map(vol, 0, 1, 1, 3);
+			var mCircle = map(vol, 0, 1, .0045, .005);
 			var mStroke = map(vol, 0, 1, 50, 100);
 			for(i=0; i<20; i++){
-				var s = (frameCount + (i+200))*mCircle %5;
-				var offset = width/2*i ;
+				var s = (frameCount + (i*100))*mCircle %5;
+				var offset = width/2 ;
 				stroke(360/num, 100/m, 100/m, 140/m);
-			
+				strokeWeight(10*m);
 				ellipse(0+offset, height/2 , s*300, s*300);
 
 			}
