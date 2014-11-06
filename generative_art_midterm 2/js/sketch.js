@@ -8,6 +8,10 @@ var input;
 var fft;
 var theta;
 var agent;
+var accum = 0;
+var amp;
+
+var time;
 
 var num = 7;
 var sw = 100;
@@ -68,6 +72,9 @@ function setup(){
 	fft.setInput(mic);
 
 
+	amp = new p5.Amplitude();
+
+
 	// COLORS! To randomly set colors just put s1colors. Example: fill(s3colors). Randomly chooes colors from season 3 (Fall).
 	s1colors = colors[0][int(random(0,4))];
 	s2colors = colors[1][int(random(0,4))];
@@ -113,7 +120,7 @@ function setup(){
     tween4.to( { r:171, g:117, b:136 }, 3000 );
     tween4.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween4.onStart(function(){
-        print("color: " + agent.r);
+        // print("color: " + agent.r);
     });
     tween4.onComplete(function(){
         tween5.start();
@@ -224,24 +231,20 @@ function setup(){
 	};
 
 	scenes.push(scene3);
-}
+
+
 	var scene4 = {
-		
-
 		update: function(){
-
-
-
 		},
 		display: function(){
 			//draw an arc to screen
 			for (i = 0; i<2; i++){
 			arcs(900,900);
-			}
-		
+			}		
 		}
 	};
 	scenes.push(scene4);
+}
 
 
 
@@ -262,8 +265,8 @@ function draw(){
   	//get the overall volume(between 0 and 1.0)
 	var vol = mic.getLevel();
 
-	var m = map(vol, 0, 1, 1, 60);
-	print(m);
+	var m = map(vol, 0, 1, 1, 5);
+	// print(m);
 
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
@@ -272,16 +275,14 @@ function draw(){
 	noFill();
 	strokeWeight(30);
 	strokeCap(SQUARE);	
-	
-	// //draw an arc to screen
-	// for (i = 0; i<2; i++){
-	// 	arcs(900,900);
-	// }
 
 
 
-
-
+	var loud = m>1.5;
+	if (loud ){	
+		accum++;
+	} 
+	// print(accum);
 	// if (m < 1.5){	
 	// 	activeScene = 0;
 	// 	print(activeScene);
@@ -292,9 +293,41 @@ function draw(){
 
 	// }
 
+	time = second()/5 %5;
+	// print(time);
 
 
 
+
+
+	switch( time ){
+		case 1:
+			activeScene = 0;
+			print(activeScene);
+			break;
+		case 2:
+			activeScene = 1;
+			print(activeScene);
+			break;
+		case 3:
+			activeScene = 2;
+			print(activeScene);
+			break;
+		case 4:
+			activeScene = 3;
+			print(activeScene);
+			break;
+		case 5:
+			activeScene = 4;
+			print(activeScene);
+			break;
+		case 6:
+			activeScene = 5;
+			print(activeScene);
+			break;
+				default:
+			break;
+	}
 
 
 
@@ -329,7 +362,6 @@ function arcs(){
 			var end = start + TWO_PI * m;
 			var scale = map(sin(r+TWO_PI/num+i), -1, 1, .1, .5);
 			
-			
 			arc(0, 0, 700 -i * sw, 700 - i *sw, start, end*scale);
 			//arc(0, 0, width*.9 -i * sw , height*.9-i*3*sw, start, end*scale);
 
@@ -357,6 +389,14 @@ function keyTyped(){
 			activeScene = 3;
 			print(activeScene);
 			break;
+		case "5":
+			activeScene = 4;
+			print(activeScene);
+			break;
+		case "6":
+			activeScene = 5;
+			print(activeScene);
+			break;
 		case " ": // Space Bar
 			if (season >= colors.length - 1){
 				season = 0;
@@ -370,6 +410,8 @@ function keyTyped(){
 	}
 
 }
+
+
 
 // if mic amplitude is greater than .75 micCount += 1;
 // if micCount > 4 then sceneNumber += 1;
