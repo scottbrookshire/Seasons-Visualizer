@@ -259,24 +259,22 @@ function setup(){
 	scenes.push(scene5);
 
 	var scene6 = {
-		num: 10,
-		startDiam: [],
-		diam: [],
-		incrDiam:0,
 		
 		animating: false,
 		
 		update: function(){
-			this.r = colors[season][3][0];
-			this.g = colors[season][3][1];
-			this.b = colors[season][3][2];
+			this.r = colors[season][2][0];
+			this.g = colors[season][2][1];
+			this.b = colors[season][2][2];
 		
 		},
 		
 		display: function(){
-			for(i=0; i<30; i++){
-				var s = (frameCount + (i+80))/100 %10;
-				ellipse(width/2, height/2, s*300, s*300);
+			for(i=0; i<20; i++){
+				var s = (frameCount + (i+80))/100 %5;
+				var offset = width/2*i ;
+				stroke(this.r, this.g, this.b);
+				ellipse(0+offset, height/2 , s*300, s*300);
 
 			}
 		}
