@@ -82,7 +82,7 @@ function setup(){
 	s4colors = colors[3][int(random(0,4))];
 
 	agent = colors[0][0];
-	print(agent);
+	//print(agent);
 
 	//set up the tweening for fall colors
 	var tween1 = new TWEEN.Tween( agent );
@@ -146,34 +146,43 @@ function setup(){
 
 
 	var scene1 = {
-		rectPos: createVector( width / 2, height / 2),
-		rectWidth: 200,
-		rectHeight: 100,
-		rectRotation: 0,
-		r: colors[season][0][0],
-		g: colors[season][0][1],
-		b: colors[season][0][2],
+		ellipseSize: null,
+		elNumb: 40,
+		amplitude: 290,
+		r: colors[season][02][0],
+		g: colors[season][2][1],
+		b: colors[season][2][2],
+		num: 50,
 		animating: false,
+
 		update: function(){
-			this.rectRotation += radians(1);
-			this.r = colors[season][0][0];
-			this.g = colors[season][0][1];
-			this.b = colors[season][0][2];
+			this.ellipseSize = width/this.elNumb;
+			this.r = colors[season][2][0];
+			this.g = colors[season][2][1];
+			this.b = colors[season][2][2];
 		},
 		display: function(){
-			push();
-			rectMode(CENTER);
-			translate( this.rectPos.x, this.rectPos.y );
-
-			fill( this.r, this.g, this.b);
-			rotate( this.rectRotation );
-			rect( 0, 0, this.rectWidth, this.rectHeight) ;
-			pop();
+			
+			for(i = 0; i<(this.elNumb + 2); i++){
+				var offset = (TWO_PI/this.elNumb*i)*2;
+				var xPos = width/this.elNumb *i;
+				var yPos = y = map(sin( theta+offset), -1, 1, height/2-this.amplitude/2, height/2+this.amplitude/2);
+				var f = map(sin(theta/2+offset/4),-1,1,0,255);
+				fill (f, this.g, this.b);
+				ellipse(xPos, yPos, 30, 30 );
+			
+			}	
+		
+			
+			theta = 0.6;
+		
 		}
+
 	};
 
 	scenes.push(scene1);
 
+	
 	var scene2 = {
 		update: function(){
 		},
@@ -215,9 +224,15 @@ function setup(){
 	scenes.push(scene3);
 
 
+
 	var scene4 = {
+		
+		animating: false,
+		
 		update: function(){
+		
 		},
+		
 		display: function(){
 			//draw an arc to screen
 			for (i = 0; i<2; i++){
@@ -225,9 +240,10 @@ function setup(){
 			}		
 		}
 	};
+	
 	scenes.push(scene4);
-}
 
+}
 
 
 
@@ -250,6 +266,7 @@ function draw(){
 	var m = map(vol, 0, 1, 1, 5);
 	// print(m);
 
+
 	//analyze the spectum with a bin of 16
 	var spectrum = fft.analyze();
 
@@ -258,12 +275,18 @@ function draw(){
 	strokeWeight(30);
 	strokeCap(SQUARE);	
 
+	
+	
 
 
-	var loud = m>1.5;
-	if (loud ){	
-		accum++;
-	} 
+
+
+
+
+	// var loud = m>1.5;
+	// if (loud ){	
+	// 	accum++;
+	// } 
 	// print(accum);
 	// if (m < 1.5){	
 	// 	activeScene = 0;
@@ -275,40 +298,41 @@ function draw(){
 
 	// }
 
+
 	// var t = map(vol, 0, 1, .1  , .9);
-	time = floor(second()/5 %5);
+	//time = floor(second()/5 %5);
 	// print(time);
 
 
 
-	// switch( time ){
-	// 	case 1:
-	// 		activeScene = 0;
-	// 		print(activeScene);
-	// 		break;
-	// 	case 2:
-	// 		activeScene = 1;
-	// 		print(activeScene);
-	// 		break;
-	// 	case 3:
-	// 		activeScene = 2;
-	// 		print(activeScene);
-	// 		break;
-	// 	case 4:
-	// 		activeScene = 3;
-	// 		print(activeScene);
-	// 		break;
-	// 	case 5:
-	// 		activeScene = 4;
-	// 		print(activeScene);
-	// 		break;
-	// 	case 6:
-	// 		activeScene = 5;
-	// 		print(activeScene);
-	// 		break;
-	// 			default:
-	// 		break;
-	// }
+	switch( time ){
+		case 1:
+			activeScene = 0;
+			print(activeScene);
+			break;
+		case 2:
+			activeScene = 1;
+			print(activeScene);
+			break;
+		case 3:
+			activeScene = 2;
+			print(activeScene);
+			break;
+		case 4:
+			activeScene = 3;
+			print(activeScene);
+			break;
+		case 5:
+			activeScene = 4;
+			print(activeScene);
+			break;
+		case 6:
+			activeScene = 5;
+			print(activeScene);
+			break;
+				default:
+			break;
+	}
 
 
 
@@ -324,6 +348,7 @@ function draw(){
 	myCanvas.size(windowWidth, windowHeight);
 	}
 }
+
 // draws arcing rings to screen
 function arcs(){
 		stroke(s1colors);
@@ -351,6 +376,7 @@ function arcs(){
 		pop();
 	}
 //draws squares
+
 function drawRaster ()
 {
   var rows = 7;
