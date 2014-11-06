@@ -13,7 +13,7 @@ var num = 7;
 var sw = 100;
 var r = 0;
 var scenes = [];
-var activeScene = 1;
+var activeScene = 0;
 var season = 0;
 
 
@@ -53,6 +53,7 @@ var s2colors; //summer
 var s3colors; // fall 
 var s4colors; //winter
 
+var agent;
 
 function setup(){
 	//Create the canvas at window height and width
@@ -73,29 +74,69 @@ function setup(){
 	s3colors = colors[2][int(random(0,4))];
 	s4colors = colors[3][int(random(0,4))];
 
-	// //set up tweening objects
-	// var tween1 = new TWEEN.Tween(agent);
-	// tween1. to ( {x: 0, y: 0}, 2000);//we initulize tweening values here followed by time in milliseconds
-	// tween1.easing( TWEEN.Easing.Sinusoidal.InOut );
-	// tween1.onStart(function(){	
-	// 	//print("Agent's x: " + agent.x + " y: " + agent.y);
-	// });
-	// tween1.onUpdate(function(){});
- //    tween1.onComplete(function(){
- //        tween2.start();//chain tweens
- //    });
+	agent = colors[0][0];
+	print(agent);
 
- //    var tween2 = new TWEEN.Tween( agent );
- //    tween2.to( { x: 255 , y: 255}, 2000 );
- //    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
- //    tween2.onStart(function(){
- //        //print("Agent's x: " + agent.x + " y: " + agent.y);
- //    });
- //    tween2.onComplete(function(){
- //        tween1.start();
- //    });
+	var tween1 = new TWEEN.Tween( agent );
+    tween1.to( { r: 239, g:128, b: 67 }, 3000 );
+    tween1.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween1.onStart(function(){
+        print("color: " + agent.r);
+    });
+    tween1.onUpdate(function(){});
+    tween1.onComplete(function(){
+        tween2.start();
+    });
+
+    var tween2 = new TWEEN.Tween( agent );
+    tween2.to( { r:237, g:154, b:98 }, 3000 );
+    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween2.onStart(function(){
+        print("color: " + agent.r);
+    });
+    tween2.onComplete(function(){
+        tween3.start();
+    });
+
+    var tween3 = new TWEEN.Tween( agent );
+    tween2.to( { r:104, g:214, b:147 }, 3000 );
+    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween2.onStart(function(){
+        print("color: " + agent.r);
+    });
+    tween3.onComplete(function(){
+        tween1.start();
+    });
+
+    var tween4 = new TWEEN.Tween( agent );
+    tween2.to( { r:63, g:154, b:130 }, 3000 );
+    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween2.onStart(function(){
+        print("color: " + agent.r);
+    });
+    tween4.onComplete(function(){
+        tween1.start();
+    });
+
+    var tween5 = new TWEEN.Tween( agent );
+    tween2.to( { r:160, g:215, b:226 }, 3000 );
+    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween2.onStart(function(){
+        print("color: " + agent.r);
+    });
+    tween5.onComplete(function(){
+        tween1.start();
+    });
+
+
 	
-	// tween1.start();
+
+	tween1.start();
+
+
+
+
+
 	var scene1 = {
 		rectPos: createVector( width / 2, height / 2),
 		rectWidth: 200,
@@ -183,6 +224,25 @@ function setup(){
 
 	scenes.push(scene3);
 }
+	var scene4 = {
+		
+
+		update: function(){
+
+
+
+		},
+		display: function(){
+			//draw an arc to screen
+			for (i = 0; i<2; i++){
+			arcs(900,900);
+			}
+		
+		}
+	};
+	scenes.push(scene4);
+
+
 
 
 
@@ -193,14 +253,15 @@ function draw(){
 
 	// Blend the old frames into the background
 	blendMode( BLEND );
-  	fill( s3colors);
+  	fill( agent.r, agent.g, agent.b);
+  	TWEEN.update();
   	rect( 0, 0, width, height );
   	rad = radians( frameCount );
 				
   	//get the overall volume(between 0 and 1.0)
 	var vol = mic.getLevel();
 
-	var m = map(vol, 0, 1, 1, 5);
+	var m = map(vol, 0, 1, 1, 60);
 	print(m);
 
 	//analyze the spectum with a bin of 16
@@ -220,15 +281,15 @@ function draw(){
 
 
 
-	if (m > 1.5){	
-		activeScene = 0;
-		print(activeScene);
+	// if (m < 1.5){	
+	// 	activeScene = 0;
+	// 	print(activeScene);
 
-	} else if (m > 2 && m < 5){
-		activeScene = 1;
-		print(activeScene);
+	// } else if (m > 2 ){
+	// 	activeScene = 1;
+	// 	print(activeScene);
 
-	}
+	// }
 
 
 
@@ -248,33 +309,33 @@ function draw(){
 	myCanvas.size(windowWidth, windowHeight);
 	}
 }
+// draws arcing rings to screen
+function arcs(){
+		stroke(s1colors);
 
-// function arcs(){
-// 		stroke(s1colors);
+		//get the overall volume(between 0 and 1.0)
+		var vol = mic.getLevel();
 
-// 		//get the overall volume(between 0 and 1.0)
-// 		var vol = mic.getLevel();
+		//map the volume to a larger more usable number
+		var m = map(vol, 0, 1, 1, 5);
 
-// 		//map the volume to a larger more usable number
-// 		var m = map(vol, 0, 1, 1, 5);
-
-// 		push();
-// 		translate(width/2, height/2);
-// 		rotate(TWO_PI);
-// 		for (i=0; i < num; i++){
-// 			stroke(360/num*i, 100/m, 100/m, 140/m);
-// 			var start = TWO_PI+i*r+m;
-// 			var end = start + TWO_PI * m;
-// 			var scale = map(sin(r+TWO_PI/num+i), -1, 1, .1, .5);
+		push();
+		translate(width/2, height/2);
+		rotate(TWO_PI);
+		for (i=0; i < num; i++){
+			stroke(360/num*i, 100/m, 100/m, 140/m);
+			var start = TWO_PI+i*r+m;
+			var end = start + TWO_PI * m;
+			var scale = map(sin(r+TWO_PI/num+i), -1, 1, .1, .5);
 			
 			
-// 			arc(0, 0, 700 -i * sw, 700 - i *sw, start, end*scale);
-// 			//arc(0, 0, width*.9 -i * sw , height*.9-i*3*sw, start, end*scale);
+			arc(0, 0, 700 -i * sw, 700 - i *sw, start, end*scale);
+			//arc(0, 0, width*.9 -i * sw , height*.9-i*3*sw, start, end*scale);
 
-// 		}
-// 		r += .0323/2;
-// 		pop();
-// 	}
+		}
+		r += .0323/2;
+		pop();
+	}
 
 
 function keyTyped(){
@@ -289,6 +350,10 @@ function keyTyped(){
 			break;
 		case "3":
 			activeScene = 2;
+			print(activeScene);
+			break;
+		case "4":
+			activeScene = 3;
 			print(activeScene);
 			break;
 		case " ": // Space Bar
