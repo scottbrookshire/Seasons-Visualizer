@@ -99,29 +99,29 @@ function setup(){
     });
 
     var tween3 = new TWEEN.Tween( agent );
-    tween2.to( { r:104, g:214, b:147 }, 3000 );
-    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
-    tween2.onStart(function(){
+    tween3.to( { r:104, g:214, b:147 }, 3000 );
+    tween3.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween3.onStart(function(){
         print("color: " + agent.r);
     });
     tween3.onComplete(function(){
-        tween1.start();
+        tween4.start();
     });
 
     var tween4 = new TWEEN.Tween( agent );
-    tween2.to( { r:63, g:154, b:130 }, 3000 );
-    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
-    tween2.onStart(function(){
+    tween4.to( { r:63, g:154, b:130 }, 3000 );
+    tween4.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween4.onStart(function(){
         print("color: " + agent.r);
     });
     tween4.onComplete(function(){
-        tween1.start();
+        tween5.start();
     });
 
     var tween5 = new TWEEN.Tween( agent );
-    tween2.to( { r:160, g:215, b:226 }, 3000 );
-    tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
-    tween2.onStart(function(){
+    tween5.to( { r:160, g:215, b:226 }, 3000 );
+    tween5.easing( TWEEN.Easing.Sinusoidal.InOut );
+    tween5.onStart(function(){
         print("color: " + agent.r);
     });
     tween5.onComplete(function(){
