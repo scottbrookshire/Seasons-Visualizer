@@ -268,21 +268,19 @@ function setup(){
 		},
 		display: function(){
 			var minRes = 3;
-			var maxRes = 30;
-			translate( width / 2, height / 2 );
-			// Set how many points the circle will have
-			var circleResolution = floor( map( mouseY, 0, height, minRes, maxRes ) );
-			var radius = mouseX - width / 2;
-			var angle = TWO_PI / circleResolution;
-			strokeWeight(0 );
-			stroke(0);
-			fill(0);
+			var maxRes = 3;
+			var vol = mic.getLevel();
+			var m = map(vol, 0, 1, 1, 4);
+			var mStroke = map(vol, 0, 1, .5, 15);
 
-			if( circleResolution % 2 ){
-				rotate( PI / circleResolution / 2 );
-			}else{
-				rotate( PI / circleResolution );
-			}
+			translate( width / 2, height / 2+50 );
+			// Set how many points the circle will have
+			var circleResolution = floor( map( vol, 0, 1, minRes, maxRes ) );
+			var radius = 300*m;
+			var angle = TWO_PI / circleResolution;
+			strokeWeight(30 *mStroke );
+			stroke(360/num, 100/m, 100/m, 140/m);
+			rotate( PI / circleResolution / 2 );
 			
 			beginShape();
 			for ( var i = 0; i <= circleResolution; i++ ){
@@ -303,17 +301,20 @@ function setup(){
 		animating: false,
 		
 		update: function(){
-			this.r = colors[season][2][0];
-			this.g = colors[season][2][1];
-			this.b = colors[season][2][2];
 		
 		},
 		
 		display: function(){
+
+			var vol = mic.getLevel();
+			var m = map(vol, 0, 1, 1, 4);
+			var mCircle = map(vol, 0, 1, .005, .001);
+			var mStroke = map(vol, 0, 1, 50, 100);
 			for(i=0; i<20; i++){
-				var s = (frameCount + (i+80))/100 %5;
+				var s = (frameCount + (i+200))*mCircle %5;
 				var offset = width/2*i ;
-				stroke(this.r, this.g, this.b);
+				stroke(360/num, 100/m, 100/m, 140/m);
+			
 				ellipse(0+offset, height/2 , s*300, s*300);
 
 			}
