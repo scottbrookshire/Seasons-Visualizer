@@ -77,8 +77,9 @@ function setup(){
 	agent = colors[0][0];
 	print(agent);
 
+	//set up the tweening for fall colors
 	var tween1 = new TWEEN.Tween( agent );
-    tween1.to( { r: 239, g:128, b: 67 }, 3000 );
+    tween1.to( { r: 70, g:67, b: 98 }, 3000 );
     tween1.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween1.onStart(function(){
         print("color: " + agent.r);
@@ -89,7 +90,7 @@ function setup(){
     });
 
     var tween2 = new TWEEN.Tween( agent );
-    tween2.to( { r:237, g:154, b:98 }, 3000 );
+    tween2.to( { r:194, g:105, b:98 }, 3000 );
     tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween2.onStart(function(){
         print("color: " + agent.r);
@@ -99,7 +100,7 @@ function setup(){
     });
 
     var tween3 = new TWEEN.Tween( agent );
-    tween3.to( { r:104, g:214, b:147 }, 3000 );
+    tween3.to( { r:215, g:129, b:136 }, 3000 );
     tween3.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween3.onStart(function(){
         print("color: " + agent.r);
@@ -109,7 +110,7 @@ function setup(){
     });
 
     var tween4 = new TWEEN.Tween( agent );
-    tween4.to( { r:63, g:154, b:130 }, 3000 );
+    tween4.to( { r:171, g:117, b:136 }, 3000 );
     tween4.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween4.onStart(function(){
         print("color: " + agent.r);
@@ -119,7 +120,7 @@ function setup(){
     });
 
     var tween5 = new TWEEN.Tween( agent );
-    tween5.to( { r:160, g:215, b:226 }, 3000 );
+    tween5.to( { r:235, g:173, b:153 }, 3000 );
     tween5.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween5.onStart(function(){
         print("color: " + agent.r);
