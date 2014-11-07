@@ -17,40 +17,41 @@ var num = 7;
 var sw = 100;
 var r = 0;
 var scenes = [];
-var activeScene = 3;
+var activeScene = 7;
 var season = 0;
-
-
 var colors = [	
-	[	//Spring
-		[239, 128, 67], //deep orange
-		[237, 154, 98], //muted orange
-		[104, 214, 147], //light green
-		[63, 154, 130], //dark green
-		[160, 215, 226] //light blue
-	],
-	[	//Summer
-		[ 196, 87, 87], //red
-		[ 249, 115, 115], //red orange
-		[ 255, 153, 102], //orange
-		[ 255, 204, 102], // yellow
-		[ 255, 255, 153]  //light yellow
-	],
-	[	//Fall
-		[70, 67, 81], //dark
-		[194, 105, 98], //red
-		[215, 129, 136], //salmon
-		[171, 117, 136], //purp
-		[235, 173, 153] //teal
-	],
-	[	//Winter
-		[ 34, 72, 96], //dark blue
-		[ 66, 107, 131], //navy blue
-		[ 55, 134, 153], //middle blue
-		[ 168, 202, 218], //light blue
-		[ 160, 215, 226]  //lighter blue
-	]  	 
-];
+		[	//Spring
+			[239, 128, 67], //deep orange
+			[237, 154, 98], //muted orange
+			[104, 214, 147], //light green
+			[63, 154, 130], //dark green
+			[160, 215, 226] //light blue
+		],
+		[	//Summer
+			[ 196, 87, 87], //red
+			[ 249, 115, 115], //red orange
+			[ 255, 153, 102], //orange
+			[ 255, 204, 102], // yellow
+			[ 255, 255, 153]  //light yellow
+		],
+		[	//Fall
+			[70, 67, 81], //dark
+			[194, 105, 98], //red
+			[215, 129, 136], //salmon
+			[171, 117, 136], //purp
+			[235, 173, 153] //teal
+		],
+		[	//Winter
+			[ 34, 72, 96], //dark blue
+			[ 66, 107, 131], //navy blue
+			[ 55, 134, 153], //middle blue
+			[ 168, 202, 218], //light blue
+			[ 160, 215, 226]  //lighter blue
+		]]
+	;
+
+
+
 
 var s1colors; //spring
 var s2colors; //summer
@@ -74,7 +75,8 @@ function setup(){
 
 	amp = new p5.Amplitude();
 
-
+	
+	
 	// COLORS! To randomly set colors just put s1colors. Example: fill(s3colors). Randomly chooes colors from season 3 (Fall).
 	s1colors = colors[0][int(random(0,4))];
 	s2colors = colors[1][int(random(0,4))];
@@ -100,7 +102,7 @@ function setup(){
     tween2.to( { r:194, g:105, b:98 }, 3000 );
     tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween2.onStart(function(){
-        print("color: " + agent.r);
+        //print("color: " + agent.r);
     });
     tween2.onComplete(function(){
         tween3.start();
@@ -130,7 +132,7 @@ function setup(){
     tween5.to( { r:235, g:173, b:153 }, 3000 );
     tween5.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween5.onStart(function(){
-        print("color: " + agent.r);
+        //print("color: " + agent.r);
     });
     tween5.onComplete(function(){
         tween1.start();
@@ -149,17 +151,18 @@ function setup(){
 		ellipseSize: null, 
 		elNumb: 25,
 		amplitude: 30,
-		r: colors[season][02][0],
-		g: colors[season][2][1],
-		b: colors[season][2][2],
+ 		// color1: colors[0][0],
+ 		// color2: colors[0][1],
+ 		// color3: colors[0][2],
+ 		// color4: colors[0][3],
+ 		// color5: colors[0][4],
+
 		animating: false,
 		theta: 0,
 
 		update: function(){
 			this.ellipseSize = width/this.elNumb-25;
-			this.r = colors[season][2][0];
-			this.g = colors[season][2][1];
-			this.b = colors[season][2][2];
+
 		},
 		display: function(){
 
@@ -172,7 +175,11 @@ function setup(){
 				var xPos = width/this.elNumb *i;
 				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2*mStroke, height/2+this.amplitude/2*mStroke);
 				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
-				fill(360/num*i, 100/m, 100/m, 190/m);
+				// fill(360/num*i, 100/m, 100/m, 190/m);
+				
+				print(colors[0][0]);
+				
+				fill( 360/num*i, 100/m, 100/m, 190/m);
 				noStroke();
 				ellipse(xPos, yPos, this.ellipseSize*m, this.ellipseSize*m );
 			
@@ -204,6 +211,8 @@ function setup(){
 		
 		animating: false,
 		update: function(){
+		
+
 		},
 		display: function(){
 			var num = 10;
@@ -344,7 +353,8 @@ function setup(){
 		
 		
 		display: function(){
-		fill();
+		fill(this.r, this.g, this.b);
+		noStroke();2
 		rect(width/2, height/2, 50, 50);
 			
 		}
