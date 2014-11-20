@@ -17,7 +17,7 @@ var num = 7;
 var sw = 100;
 var r = 0;
 var scenes = [];
-var activeScene = 7;
+var activeScene = 3;
 var season = 0;
 var colors = [	
 		[	//Spring
@@ -357,8 +357,8 @@ function setup(){
 		
 		display: function(){
 		fill(this.r, this.g, this.b);
-		noStroke();2
-		rect(width/2, height/2, 50, 50);
+		noStroke();
+		rect(width/2, height/2, 40, 50);
 			
 		}
 	};
@@ -379,8 +379,8 @@ function setup(){
 		
 		
 		display: function(){
-		fill();
-		rect(width/2, height/2, 50, 50);
+		// fill();
+		// rect(width/2, height/2, 50, 50);
 			
 		}
 	};
