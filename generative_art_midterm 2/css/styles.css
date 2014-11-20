@@ -341,14 +341,21 @@ Our styles
 --------------------------------*/
 body, html{
     font-size: 20px;
-    background-color:  #3F9A82;
+   /* background-color:  #3F9A82;*/
 /*    background-color: #3F9A82;*/
 }
-
-.wrapper{
+canvas{
+    position:absolute;
+    top:0;
+    z-index: -999;
+}
+#wrapper{
     display:block;
     max-width:1100px;
     margin:0 auto;
+    position:absolute;
+    top:25%;
+    left:10%;
 }
 
 h1, h2, h3, h4, h5, h6, p, a{
@@ -391,7 +398,7 @@ section{
 
 .titleScreen{
 
-   margin:13% auto 2% auto;
+   margin:0 auto 2% auto;
     display:block;
     
     

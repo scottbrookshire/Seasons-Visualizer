@@ -21,7 +21,7 @@ var activeScene = 7;
 var season = 0;
 var colors = [	
 		[	//Spring
-			[239, 128, 67], //deep orange
+			[1, 1, 1], //deep orange
 			[237, 154, 98], //muted orange
 			[104, 214, 147], //light green
 			[63, 154, 130], //dark green
@@ -61,6 +61,7 @@ var s4colors; //winter
 var agent;
 
 function setup(){
+
 	//Create the canvas at window height and width
 	myCanvas = createCanvas(windowWidth, windowHeight);
 
@@ -76,6 +77,8 @@ function setup(){
 	amp = new p5.Amplitude();
 
 	
+	var fs = fullscreen();
+    fullscreen(!fs);
 	
 	// COLORS! To randomly set colors just put s1colors. Example: fill(s3colors). Randomly chooes colors from season 3 (Fall).
 	s1colors = colors[0][int(random(0,4))];
@@ -177,7 +180,7 @@ function setup(){
 				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
 				// fill(360/num*i, 100/m, 100/m, 190/m);
 				
-				print(colors[0][0]);
+				// print(colors[0][0]);
 				
 				fill( 360/num*i, 100/m, 100/m, 190/m);
 				noStroke();
@@ -420,7 +423,6 @@ function draw(){
 	strokeCap(SQUARE);	
 
 	
-	
 
 
 
@@ -494,7 +496,7 @@ function draw(){
 
 	//Correlation between scenes[]; and activeScene change.
 	scenes[activeScene].update();
-	scenes[activeScene].display();
+	
 
 	// Window resizes
 	window.onresize = function(){
@@ -578,35 +580,35 @@ function keyTyped(){
 	switch( key ){
 		case "1":
 			activeScene = 0;
-			print(activeScene);
+			// print(activeScene);
 			break;
 		case "2":
 			activeScene = 1;
-			print(activeScene);
+			// print(activeScene);
 			break;
 		case "3":
 			activeScene = 2;
-			print(activeScene);
+			// print(activeScene);
 			break;
 		case "4":
 			activeScene = 3;
-			print(activeScene);
+			// print(activeScene);
 			break;
 		case "5":
 			activeScene = 4;
-			print(activeScene);
+			// print(activeScene);
 			break;
 		case "6":
 			activeScene = 5;
-			print(activeScene);
+			// print(activeScene);
 			break;
 		case "7":
 			activeScene = 6;
-			print(activeScene);
+			// print(activeScene);
 			break;
 		case "8":
 			activeScene = 7;
-			print(activeScene);
+			// print(activeScene);
 			break;
 		case " ": // Space Bar
 			if (season >= colors.length - 1){
@@ -623,6 +625,23 @@ function keyTyped(){
 }
 
 
+
+
+
+
+// function mousePressed() {
+   
+//     scenes[activeScene].update();
+// 	scenes[activeScene].display();
+
+// }
+
+function hideWrapper() {
+  document.getElementById('wrapper').style.cssText = 'display:none';
+   var fs = fullscreen();
+   fullscreen(!fs);
+   scenes[activeScene].display();
+}
 
 // if mic amplitude is greater than .75 micCount += 1;
 // if micCount > 4 then sceneNumber += 1;
