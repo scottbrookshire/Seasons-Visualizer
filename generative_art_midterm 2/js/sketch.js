@@ -282,7 +282,9 @@ function setup(){
 		
 		animating: false,
 		update: function(){
-
+			this.r = colors[2][2][0];
+			this.g = colors[2][2][1];
+			this.b = colors[2][2][2];
 			
 		},
 		display: function(){
@@ -293,7 +295,7 @@ function setup(){
 			
 			noFill();
 			strokeWeight(20 *mStroke );
-			stroke(360/num, 100/m, 100/m, 140/m);
+			stroke(this.r, this.g/m, this.b/m, 140/m);
 			
 			var wScale = map(width, 0, width, 1, 3);
 			
@@ -332,6 +334,9 @@ function setup(){
 		animating: false,
 		
 		update: function(){
+			this.r = colors[2][2][0];
+			this.g = colors[2][2][1];
+			this.b = colors[2][2][2];
 		
 		},
 		
@@ -344,7 +349,7 @@ function setup(){
 			for(i=0; i<20; i++){
 				var s = (frameCount + (i*100))*mCircle %5;
 				var offset = width/2 ;
-				stroke(360/num, 100/m, 100/m, 140/m);
+				stroke(this.r/num*i, this.g/m, this.b/m, 140/m);
 				strokeWeight(10*m);
 				ellipse(0+offset, height/2 , s*300, s*300);
 
@@ -394,6 +399,10 @@ function setup(){
 		animating: false,
 		
 		update: function(){
+			
+			this.r = colors[2][3][0];
+			this.g = colors[2][3][1];
+			this.b = colors[2][3][2];
 		
 		},
 
@@ -414,7 +423,7 @@ function setup(){
 			noStroke();
 			// var c = lerpColor(c1, c2, i / freq.length);
 				
-			fill(360/num*i, 100/m, 100/m, 140/m);
+			fill(this.r/num*i, this.g, this.b, 140/m);
 
 			rect( x, y, width / freq.length, -freq[i]*5 );
 		}
@@ -602,6 +611,10 @@ function arcs(){
 
 function drawRaster ()
 {
+  	this.r = colors[2][4][0];
+	this.g = colors[2][4][1];
+	this.b = colors[2][4][2];
+
   var rows = 5;
   var columns = 6;
  
@@ -618,6 +631,8 @@ function drawRaster ()
 
   var i = 0;
 
+	
+
 var vol = mic.getLevel();
 
 		//map the volume to a larger more usable number
@@ -632,12 +647,11 @@ var vol = mic.getLevel();
     while (j < columns)
     {
       var x = margin + j*(rectWidth+padding);
-      fill(360/num*i, 500/m, 500/m, 600/m);
+      fill(this.r/num*i, this.g/m, this.b/m, 300/m);
       noStroke();
       var offSet = TWO_PI/columns*(j+i);
       var h = 50;
       rect (x, rectHeight+y, rectWidth, m*-10 );
-      fill (20);
       j = j +1;
     }
  
