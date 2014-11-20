@@ -17,7 +17,7 @@ var num = 7;
 var sw = 100;
 var r = 0;
 var scenes = [];
-var activeScene = 3;
+var activeScene = 4;
 var season = 0;
 
 var peakCount = 0;
@@ -65,7 +65,7 @@ function setup(){
 	myCanvas = createCanvas(windowWidth, windowHeight);
 
 	mic = new p5.AudioIn();
-	mic.start();
+	
 
 	//creates a new fast fourier transformation that isolates individual audio
 	//frequencies within a waveform. new p5.FFT([smoothing],[bins])
@@ -90,7 +90,7 @@ function setup(){
     tween1.to( { r: 70, g:67, b: 98 }, 3000 );
     tween1.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween1.onStart(function(){
-        //print("color: " + agent.r);
+        //print("color: " + agent.r);        
     });
     tween1.onUpdate(function(){});
     tween1.onComplete(function(){
@@ -274,30 +274,41 @@ function setup(){
 			
 		},
 		display: function(){
-			var minRes = 3;
-			var maxRes = 3;
-			var vol = mic.getLevel();
-			var m = map(vol, 0, 1, 1, 4);
-			var mStroke = map(vol, 0, 1, .5, 15);
-
-			translate( width / 2, height / 2+50 );
-			// Set how many points the circle will have
-			var circleResolution = floor( map( vol, 0, 1, minRes, maxRes ) );
-			var radius = 300*m;
-			var angle = TWO_PI / circleResolution;
-			strokeWeight(30 *mStroke );
-			stroke(360/num, 100/m, 100/m, 140/m);
-			rotate( PI / circleResolution / 2 );
 			
-			beginShape();
-			for ( var i = 0; i <= circleResolution; i++ ){
+			var vol = mic.getLevel();
+			var m = map(vol, 0, 1, 5, 20);
+			var mStroke = map(vol, 0, 1, 2, 45);
+			
+			noFill();
+			strokeWeight(20 *mStroke );
+			stroke(360/num, 100/m, 100/m, 140/m);
+			
+			var wScale = map(width, 0, width, 1, 3);
+			
 
-				var x = 0 + cos( angle * i ) * radius;
-				var y = 0 + sin( angle * i ) * radius;
-				vertex ( x, y );
+			triangle( width/2, height/4.3, width/1.42, height/1.25, width/3.25, height/1.25);
 
-			}
-			endShape();
+			
+			// var minRes = 3;
+			// var maxRes = 20;
+			// translate( width / 2, height / 2 );
+			// // Set how many points the circle will have
+			// var circleResolution = floor( map( vol, 0, 1, minRes, maxRes ) );
+			// var radius = 300*m;
+			// var angle = TWO_PI / circleResolution;
+			// strokeWeight(30 *mStroke );
+			// stroke(360/num, 100/m, 100/m, 140/m);
+			// rotate( PI / circleResolution / 2 );
+			
+			// beginShape();
+			// for ( var i = 0; i <= circleResolution; i++ ){
+
+			// 	var x = 0 + cos( angle * i ) * radius;
+			// 	var y = 0 + sin( angle * i ) * radius;
+			// 	vertex ( x, y );
+
+			// }
+			// endShape();
 		}
 	};
 
@@ -335,8 +346,8 @@ function setup(){
 	var scene7 = {
 		
 		rectPos: createVector( width / 2, height / 2),
-		rectWidth: width/1.2,
-		rectHeight: 100,
+		rectWidth: width,
+		rectHeight: height/3,
 	
 		r: colors[season][0][0],
 		g: colors[season][0][1],
@@ -351,10 +362,11 @@ function setup(){
 		display: function(){
 			push();
 			rectMode(CENTER);
-			translate( this.rectPos.x, this.rectPos.y );
+			translate( width/2, height/2 );
 			var vol = mic.getLevel();
 			noStroke();
-			var m = map(vol, 0, 1, 1, 3);
+			var m = map(vol, 0, 1, 1, 12);
+			var m2 = map(vol, 0, 1, 1, 4);
 			fill(360/num*i, 100/m, 100/m, 140/m);
 		
 			rect( 0, 0, this.rectWidth, this.rectHeight*m) ;
@@ -444,18 +456,18 @@ function draw(){
 
 	//AHHHHH!H!HHASIAJDSFLASDHGLKHA!!!!!!
 
-	if (vol > .1){
-		peakCount++;
-		print(vol);
-	} 
+	// if (vol > .1){
+	// 	peakCount++;
+	// 	print(vol);
+	// } 
 
-	if (peakCount > 3){
-			peakCount = 0;
-			activeScene++;
-	}
-	if (activeScene>=scenes.length){
-			activeScene=0;
-	}
+	// if (peakCount > 3){
+	// 		peakCount = 0;
+	// 		activeScene++;
+	// }
+	// if (activeScene>=scenes.length){
+	// 		activeScene=0;
+	// }
 
 
 
@@ -661,10 +673,10 @@ function keyTyped(){
 
 
 function hideWrapper() {
-  document.getElementById('wrapper').style.cssText = 'display:none';
-   var fs = fullscreen();
-   fullscreen(!fs);
-   
+ 	document.getElementById('wrapper').style.cssText = 'display:none';
+	var fs = fullscreen();
+	fullscreen(!fs);
+	mic.start();
 }
 
 // if mic amplitude is greater than .75 micCount += 1;
