@@ -300,7 +300,7 @@ function setup(){
 			var wScale = map(width, 0, width, 1, 3);
 			
 
-			triangle( width/2, height/4.3, width/1.42, height/1.25, width/3.25, height/1.25);
+			triangle( width/2, height/4.3, width/1.5, height/1.25, width/3, height/1.25);
 
 			
 			// var minRes = 3;
@@ -405,8 +405,6 @@ function setup(){
 			this.b = colors[2][3][2];
 		
 		},
-
-		
 		
 		display: function(){
 		translate(0, height);
@@ -435,7 +433,60 @@ function setup(){
 	
 	scenes.push(scene8);
 
+	//begin scene 9
+	var scene9 = {
+		rectPos: createVector( width / 2, height / 2),
+		rectWidth: 500,
+		rectHeight: 500,
+		rectRotation: 0,
+		r: colors[2][2][0],
+		g: colors[2][2][1],
+		b: colors[2][2][2],
+		
 
+		update: function(){
+			this.rectRotation += radians(1);
+			this.r = colors[2][2][0];
+			this.g = colors[2][2][1];
+			this.b = colors[2][2][2];
+		},
+		display: function(){
+
+			var vol = mic.getLevel();
+			var m = map(vol, 0, 1, 1, 5);
+			var mStroke = map(vol, 0, 1, 1, 30);
+			
+			push();
+			rectMode(CENTER);
+			translate( width/2, height/2);
+			strokeWeight(25*mStroke);
+			noFill();
+			stroke(this.r/num*i, this.g/m, this.b/m, 120/m);
+			rotate( this.rectRotation +m);
+		
+			rect( 0, 0, this.rectWidth, this.rectHeight) ;
+
+			pop();
+			push();
+			rectMode(CENTER);
+			translate( width/2, height/2);
+			
+			noFill();
+			strokeWeight(30*mStroke);
+			stroke(this.r/num*i, this.g/m, this.b/m, 120/m);
+			rotate( this.rectRotation*-1 +m);
+
+			rect( 0, 0, this.rectWidth*2, this.rectHeight*2) ;
+			
+			pop();
+
+			
+		
+		}
+
+	};
+
+	scenes.push(scene9);
 
 
 }
@@ -550,6 +601,10 @@ function draw(){
 			activeScene = 7;
 			print(activeScene);
 			break;
+		case 9:
+			activeScene = 8;
+			print(activeScene);
+			break;
 
 				default:
 			break;
@@ -618,8 +673,8 @@ function drawRaster ()
   var rows = 5;
   var columns = 6;
  
-  var margin = 100;    
-  var padding = 50;    
+  var margin = 150;    
+  var padding = 100;    
  
   var totalSpaceWidth = width - 2*margin - (columns-1)*padding;
   var totalSpaceHeight = height - 2*margin - (rows-1)*padding;
@@ -636,7 +691,7 @@ function drawRaster ()
 var vol = mic.getLevel();
 
 		//map the volume to a larger more usable number
-		var m = map(vol, 0, 1, 5, 15)
+		var m = map(vol, 0, 1, 5, 40)
  
   while (i < rows)
   {
@@ -691,6 +746,10 @@ function keyTyped(){
 			break;
 		case "8":
 			activeScene = 7;
+			print(activeScene);
+			break;
+		case "9":
+			activeScene = 8;
 			print(activeScene);
 			break;
 		case " ": // Space Bar
