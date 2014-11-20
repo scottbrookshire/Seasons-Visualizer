@@ -411,7 +411,7 @@ function draw(){
 	var vol = mic.getLevel();
 
 	var m = map(vol, 0, 1, 1, 5);
-	// print(m);
+	
 
 
 	//analyze the spectum with a bin of 16
