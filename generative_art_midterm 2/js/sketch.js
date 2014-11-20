@@ -154,11 +154,11 @@ function setup(){
 		ellipseSize: null, 
 		elNumb: 25,
 		amplitude: 30,
- 		// color1: colors[0][0],
- 		// color2: colors[0][1],
- 		// color3: colors[0][2],
- 		// color4: colors[0][3],
- 		// color5: colors[0][4],
+ 		color1: colors[1][0],
+ 		color2: colors[1][1],
+ 		color3: colors[1][2],
+ 		color4: colors[1][3],
+ 		color5: colors[1][4],
 
 		animating: false,
 		theta: 0,
@@ -178,9 +178,9 @@ function setup(){
 				var xPos = width/this.elNumb *i;
 				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2*mStroke, height/2+this.amplitude/2*mStroke);
 				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
-				// fill(360/num*i, 100/m, 100/m, 190/m);
+				fill(360/num*i, 100/m, 100/m, 190/m);
 				
-				// print(colors[0][0]);
+				//print(colors[2][3]);
 				
 				fill( 360/num*i, 100/m, 100/m, 190/m);
 				noStroke();
@@ -580,7 +580,7 @@ function keyTyped(){
 	switch( key ){
 		case "1":
 			activeScene = 0;
-			// print(activeScene);
+			 print(activeScene);
 			break;
 		case "2":
 			activeScene = 1;
