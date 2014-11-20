@@ -164,7 +164,7 @@ function setup(){
 		theta: 0,
 
 		update: function(){
-			this.ellipseSize = width/this.elNumb-25;
+			this.ellipseSize = width/this.elNumb-5;
 
 		},
 		display: function(){
@@ -383,7 +383,7 @@ function setup(){
 		// rect(width/2, height/2, 50, 50);
 			
 		}
-	};
+	};1
 	
 	scenes.push(scene8);
 
@@ -497,6 +497,7 @@ function draw(){
 	//Correlation between scenes[]; and activeScene change.
 	
 	scenes[activeScene].display();
+	scenes[activeScene].update();
 
 	// Window resizes
 	window.onresize = function(){
@@ -640,7 +641,7 @@ function hideWrapper() {
   document.getElementById('wrapper').style.cssText = 'display:none';
    var fs = fullscreen();
    fullscreen(!fs);
-   scenes[activeScene].update();
+   
 }
 
 // if mic amplitude is greater than .75 micCount += 1;
