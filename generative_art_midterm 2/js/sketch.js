@@ -495,8 +495,8 @@ function draw(){
 	TWEEN.update();
 
 	//Correlation between scenes[]; and activeScene change.
-	scenes[activeScene].update();
 	
+	scenes[activeScene].display();
 
 	// Window resizes
 	window.onresize = function(){
@@ -640,7 +640,7 @@ function hideWrapper() {
   document.getElementById('wrapper').style.cssText = 'display:none';
    var fs = fullscreen();
    fullscreen(!fs);
-   scenes[activeScene].display();
+   scenes[activeScene].update();
 }
 
 // if mic amplitude is greater than .75 micCount += 1;
