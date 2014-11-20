@@ -15,7 +15,7 @@ var time;
 
 var num = 7;
 var sw = 100;
-var r = 0;
+var rot = 0;
 var scenes = [];
 var activeScene = 4;
 var season = 0;
@@ -50,7 +50,7 @@ var colors = [
 		[ 55, 134, 153], //middle blue
 		[ 168, 202, 218], //light blue
 		[ 160, 215, 226]  //lighter blue
-	]  	 
+	] 
 ];
 
 var s1colors; //spring
@@ -101,7 +101,7 @@ function setup(){
     tween2.to( { r:194, g:105, b:98 }, 3000 );
     tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween2.onStart(function(){
-        print("color: " + agent.r);
+        //print("color: " + agent.r);
     });
     tween2.onComplete(function(){
         tween3.start();
@@ -131,7 +131,7 @@ function setup(){
     tween5.to( { r:235, g:173, b:153 }, 3000 );
     tween5.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween5.onStart(function(){
-        print("color: " + agent.r);
+        //print("color: " + agent.r);
     });
     tween5.onComplete(function(){
         tween1.start();
@@ -150,17 +150,17 @@ function setup(){
 		ellipseSize: null, 
 		elNumb: 25,
 		amplitude: 30,
-		r: colors[season][02][0],
-		g: colors[season][2][1],
-		b: colors[season][2][2],
+		r: colors[2][2][0],
+		g: colors[2][2][1],
+		b: colors[2][2][2],
 		animating: false,
 		theta: 0,
 
 		update: function(){
 			this.ellipseSize = width/this.elNumb-25;
-			this.r = colors[season][2][0];
-			this.g = colors[season][2][1];
-			this.b = colors[season][2][2];
+			this.r = colors[2][2][0];
+			this.g = colors[2][2][1];
+			this.b = colors[2][2][2];
 		},
 		display: function(){
 
@@ -173,12 +173,13 @@ function setup(){
 				var xPos = width/this.elNumb *i;
 				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2*mStroke, height/2+this.amplitude/2*mStroke);
 				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
-				fill(360/num*i, 100/m, 100/m, 190/m);
+				fill(this.r/num*i, this.g/m, this.b/m, 190/m);
 				noStroke();
 				ellipse(xPos, yPos, this.ellipseSize*m, this.ellipseSize*m );
 			
 			}	
-		
+		print(this.b);
+
 			
 			this.theta += 0.06;
 		
@@ -190,6 +191,10 @@ function setup(){
 
 	//begin scene 2
 	var scene2 = {
+		r: colors[season][2][1],
+		g: colors[season][2][2],
+		b: colors[season][2][3],
+
 		update: function(){
 		},
 
@@ -204,7 +209,15 @@ function setup(){
 	var scene3 = {
 		
 		animating: false,
+		
 		update: function(){
+
+		this.r = colors[2][3][0];
+		this.g = colors[2][3][1];
+		this.b = colors[2][3][2];
+
+		print("color:" + this.r);
+		
 		},
 		display: function(){
 			var num = 10;
@@ -223,7 +236,7 @@ function setup(){
 			    rotate(offSet);
 			    var sz = map(sin(theta+offSet), -1, 1, 150, 200);
 			    var x = 300;
-			    fill(360/num*i, 100/m, 100/m, 120/m);
+			    fill(this.r/num*i, this.g/m, this.b/m, 120/m);
 			    noStroke();
 			    ellipse(x, 0, sz*mVol, sz*mVol);
 			    var sz2 = map(sin(-theta+offSet), -1, 1, 90, 100);
@@ -232,8 +245,6 @@ function setup(){
 			    pop();
 			  }
 			
-
-
 			// rectMode(CENTER);
 			// translate( this.rectPos.x, this.rectPos.y );
 			// fill( this.r, this.g, this.b);
@@ -241,6 +252,7 @@ function setup(){
 			// rect( 0, 0, this.rectWidth, this.rectHeight) ;
 			
 		}
+
 	};
 
 	scenes.push(scene3);
@@ -551,6 +563,9 @@ function draw(){
 
 // draws arcing rings to screen
 function arcs(){
+		this.r = colors[2][1][0];
+		this.g = colors[2][1][1];
+		this.b = colors[2][1][2];
 		stroke(s1colors);
 
 		//get the overall volume(between 0 and 1.0)
@@ -561,16 +576,25 @@ function arcs(){
 		translate(width/2, height/2);
 		rotate(TWO_PI);
 		for (i=0; i < num; i++){
-			stroke(360/num*i, 100/m, 100/m, 140/m);
-			var start = TWO_PI+i*r+m;
+			stroke(this.r/num*i, this.g/m, this.b/m, 140/m);
+			var start = TWO_PI+i*rot+m;
 			var end = start + TWO_PI * m;
-			var scale = map(sin(r+TWO_PI/num+i), -1, 1, .1, .5);
-			
+			var scale = map(sin(rot+TWO_PI/num+i), -1, 1, .1, .5);
+			print(rot);
 			arc(0, 0, 700 -i * sw, 700 - i *sw, start, end*scale);
 			//arc(0, 0, width*.9 -i * sw , height*.9-i*3*sw, start, end*scale);
 
 		}
-		r += .0323/2;
+
+		
+		
+		
+		if (rot>=5){
+			rot=0;
+		}else{
+			rot += .023/m;
+		}
+		
 		pop();
 	}
 
