@@ -19,39 +19,39 @@ var r = 0;
 var scenes = [];
 var activeScene = 3;
 var season = 0;
+
+var peakCount = 0;
+
 var colors = [	
-		[	//Spring
-			[1, 1, 1], //deep orange
-			[237, 154, 98], //muted orange
-			[104, 214, 147], //light green
-			[63, 154, 130], //dark green
-			[160, 215, 226] //light blue
-		],
-		[	//Summer
-			[ 196, 87, 87], //red
-			[ 249, 115, 115], //red orange
-			[ 255, 153, 102], //orange
-			[ 255, 204, 102], // yellow
-			[ 255, 255, 153]  //light yellow
-		],
-		[	//Fall
-			[70, 67, 81], //dark
-			[194, 105, 98], //red
-			[215, 129, 136], //salmon
-			[171, 117, 136], //purp
-			[235, 173, 153] //teal
-		],
-		[	//Winter
-			[ 34, 72, 96], //dark blue
-			[ 66, 107, 131], //navy blue
-			[ 55, 134, 153], //middle blue
-			[ 168, 202, 218], //light blue
-			[ 160, 215, 226]  //lighter blue
-		]]
-	;
-
-
-
+	[	//Spring
+		[239, 128, 67], //deep orange
+		[237, 154, 98], //muted orange
+		[104, 214, 147], //light green
+		[63, 154, 130], //dark green
+		[160, 215, 226] //light blue
+	],
+	[	//Summer
+		[ 196, 87, 87], //red
+		[ 249, 115, 115], //red orange
+		[ 255, 153, 102], //orange
+		[ 255, 204, 102], // yellow
+		[ 255, 255, 153]  //light yellow
+	],
+	[	//Fall
+		[70, 67, 81], //dark
+		[194, 105, 98], //red
+		[215, 129, 136], //salmon
+		[171, 117, 136], //purp
+		[235, 173, 153] //teal
+	],
+	[	//Winter
+		[ 34, 72, 96], //dark blue
+		[ 66, 107, 131], //navy blue
+		[ 55, 134, 153], //middle blue
+		[ 168, 202, 218], //light blue
+		[ 160, 215, 226]  //lighter blue
+	]  	 
+];
 
 var s1colors; //spring
 var s2colors; //summer
@@ -61,7 +61,6 @@ var s4colors; //winter
 var agent;
 
 function setup(){
-
 	//Create the canvas at window height and width
 	myCanvas = createCanvas(windowWidth, windowHeight);
 
@@ -76,10 +75,7 @@ function setup(){
 
 	amp = new p5.Amplitude();
 
-	
-	var fs = fullscreen();
-    fullscreen(!fs);
-	
+
 	// COLORS! To randomly set colors just put s1colors. Example: fill(s3colors). Randomly chooes colors from season 3 (Fall).
 	s1colors = colors[0][int(random(0,4))];
 	s2colors = colors[1][int(random(0,4))];
@@ -105,7 +101,7 @@ function setup(){
     tween2.to( { r:194, g:105, b:98 }, 3000 );
     tween2.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween2.onStart(function(){
-        //print("color: " + agent.r);
+        print("color: " + agent.r);
     });
     tween2.onComplete(function(){
         tween3.start();
@@ -135,7 +131,7 @@ function setup(){
     tween5.to( { r:235, g:173, b:153 }, 3000 );
     tween5.easing( TWEEN.Easing.Sinusoidal.InOut );
     tween5.onStart(function(){
-        //print("color: " + agent.r);
+        print("color: " + agent.r);
     });
     tween5.onComplete(function(){
         tween1.start();
@@ -154,18 +150,17 @@ function setup(){
 		ellipseSize: null, 
 		elNumb: 25,
 		amplitude: 30,
- 		color1: colors[1][0],
- 		color2: colors[1][1],
- 		color3: colors[1][2],
- 		color4: colors[1][3],
- 		color5: colors[1][4],
-
+		r: colors[season][02][0],
+		g: colors[season][2][1],
+		b: colors[season][2][2],
 		animating: false,
 		theta: 0,
 
 		update: function(){
-			this.ellipseSize = width/this.elNumb-5;
-
+			this.ellipseSize = width/this.elNumb-25;
+			this.r = colors[season][2][0];
+			this.g = colors[season][2][1];
+			this.b = colors[season][2][2];
 		},
 		display: function(){
 
@@ -179,10 +174,6 @@ function setup(){
 				var yPos = y = map(sin( this.theta+offset), -1, 1, height/2-this.amplitude/2*mStroke, height/2+this.amplitude/2*mStroke);
 				var f = map(sin(this.theta/2+offset/4),-1,1,0,255);
 				fill(360/num*i, 100/m, 100/m, 190/m);
-				
-				//print(colors[2][3]);
-				
-				fill( 360/num*i, 100/m, 100/m, 190/m);
 				noStroke();
 				ellipse(xPos, yPos, this.ellipseSize*m, this.ellipseSize*m );
 			
@@ -214,8 +205,6 @@ function setup(){
 		
 		animating: false,
 		update: function(){
-		
-
 		},
 		display: function(){
 			var num = 10;
@@ -345,21 +334,31 @@ function setup(){
 	//begin scene 7
 	var scene7 = {
 		
+		rectPos: createVector( width / 2, height / 2),
+		rectWidth: width/1.2,
+		rectHeight: 100,
+	
+		r: colors[season][0][0],
+		g: colors[season][0][1],
+		b: colors[season][0][2],
 		animating: false,
-		
 		update: function(){
-		this.r = colors[season][2][0];
-		this.g = colors[season][2][1];
-		this.b = colors[season][2][2];
+		
+			this.r = colors[season][0][0];
+			this.g = colors[season][0][1];
+			this.b = colors[season][0][2];
 		},
-
-		
-		
 		display: function(){
-		fill(this.r, this.g, this.b);
-		noStroke();
-		rect(width/2, height/2, 40, 50);
-			
+			push();
+			rectMode(CENTER);
+			translate( this.rectPos.x, this.rectPos.y );
+			var vol = mic.getLevel();
+			noStroke();
+			var m = map(vol, 0, 1, 1, 3);
+			fill(360/num*i, 100/m, 100/m, 140/m);
+		
+			rect( 0, 0, this.rectWidth, this.rectHeight*m) ;
+			pop();
 		}
 	};
 	
@@ -371,19 +370,35 @@ function setup(){
 		animating: false,
 		
 		update: function(){
-		this.r = colors[season][2][0];
-		this.g = colors[season][2][1];
-		this.b = colors[season][2][2];
+		
 		},
 
 		
 		
 		display: function(){
-		// fill();
-		// rect(width/2, height/2, 50, 50);
+		translate(0, height);
+		var freq = fft.analyze();
+		var vol = mic.getLevel();
+		var m = map(vol, 0, 1, 1, 3);
+
+		// var c1 = color(255, 0, 0);
+		// var c2 = color(0, 0, 255);
+
+		for ( var i = 0; i < freq.length; i++ ){
+			var x = width / freq.length * i;
+			var y = 0;
+			noStroke();
+			// var c = lerpColor(c1, c2, i / freq.length);
+				
+			fill(360/num*i, 100/m, 100/m, 140/m);
+
+			rect( x, y, width / freq.length, -freq[i]*5 );
+		}
+
+
 			
 		}
-	};1
+	};
 	
 	scenes.push(scene8);
 
@@ -411,7 +426,7 @@ function draw(){
 	var vol = mic.getLevel();
 
 	var m = map(vol, 0, 1, 1, 5);
-	
+	// print(m);
 
 
 	//analyze the spectum with a bin of 16
@@ -423,8 +438,24 @@ function draw(){
 	strokeCap(SQUARE);	
 
 	
+	
 
 
+
+	//AHHHHH!H!HHASIAJDSFLASDHGLKHA!!!!!!
+
+	if (vol > .1){
+		peakCount++;
+		print(vol);
+	} 
+
+	if (peakCount > 3){
+			peakCount = 0;
+			activeScene++;
+	}
+	if (activeScene>=scenes.length){
+			activeScene=0;
+	}
 
 
 
@@ -434,6 +465,8 @@ function draw(){
 	// 	accum++;
 	// } 
 	// print(accum);
+
+
 	// if (m < 1.5){	
 	// 	activeScene = 0;
 	// 	print(activeScene);
@@ -495,9 +528,8 @@ function draw(){
 	TWEEN.update();
 
 	//Correlation between scenes[]; and activeScene change.
-	
-	scenes[activeScene].display();
 	scenes[activeScene].update();
+	scenes[activeScene].display();
 
 	// Window resizes
 	window.onresize = function(){
@@ -581,35 +613,35 @@ function keyTyped(){
 	switch( key ){
 		case "1":
 			activeScene = 0;
-			 print(activeScene);
+			print(activeScene);
 			break;
 		case "2":
 			activeScene = 1;
-			// print(activeScene);
+			print(activeScene);
 			break;
 		case "3":
 			activeScene = 2;
-			// print(activeScene);
+			print(activeScene);
 			break;
 		case "4":
 			activeScene = 3;
-			// print(activeScene);
+			print(activeScene);
 			break;
 		case "5":
 			activeScene = 4;
-			// print(activeScene);
+			print(activeScene);
 			break;
 		case "6":
 			activeScene = 5;
-			// print(activeScene);
+			print(activeScene);
 			break;
 		case "7":
 			activeScene = 6;
-			// print(activeScene);
+			print(activeScene);
 			break;
 		case "8":
 			activeScene = 7;
-			// print(activeScene);
+			print(activeScene);
 			break;
 		case " ": // Space Bar
 			if (season >= colors.length - 1){
@@ -627,15 +659,6 @@ function keyTyped(){
 
 
 
-
-
-
-// function mousePressed() {
-   
-//     scenes[activeScene].update();
-// 	scenes[activeScene].display();
-
-// }
 
 function hideWrapper() {
   document.getElementById('wrapper').style.cssText = 'display:none';
