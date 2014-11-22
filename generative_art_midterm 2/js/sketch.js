@@ -220,7 +220,7 @@ function setup(){
 		
 		},
 		display: function(){
-			var num = 10;
+			var num = 11;
 			var maxFrameCount = 120;
 			var t = frameCount/maxFrameCount;
 			var theta = TWO_PI*t;
@@ -228,17 +228,23 @@ function setup(){
 			rotate(theta/num);
 			var vol = mic.getLevel();
 			var m = map(vol, 0, 1, 1, 4);
-			var mVol = map(vol, 0, 1, .4, 1);
+			var mVol = map(vol, 0, 1, .4, 3);
 
 			 for (var i=0; i<num; i++) {
 			    push();
 			    var offSet = TWO_PI/num*i;
 			    rotate(offSet);
-			    var sz = map(sin(theta+offSet), -1, 1, 150, 200);
-			    var x = 300;
 			    fill(this.r/num*i, this.g/m, this.b/m, 120/m);
 			    noStroke();
+
+			    var sz3 = map(sin(theta+offSet), -1, 1, 210, 230);
+			    var x3 = 495;
+			    ellipse(x3, 0, sz3*mVol, sz3*mVol);
+
+			    var sz = map(sin(theta+offSet), -1, 1, 150, 200);
+			    var x = 320;			    
 			    ellipse(x, 0, sz*mVol, sz*mVol);
+
 			    var sz2 = map(sin(-theta+offSet), -1, 1, 90, 100);
 			    var x2 = 150;
 			    ellipse(x2, 0, sz2*mVol, sz2*mVol);
@@ -528,18 +534,18 @@ function draw(){
 
 	//AHHHHH!H!HHASIAJDSFLASDHGLKHA!!!!!!
 
-	// if (vol > .1){
-	// 	peakCount++;
-	// 	print(vol);
-	// } 
+	if (vol > .1){
+		peakCount++;
+		print(vol);
+	} 
 
-	// if (peakCount > 3){
-	// 		peakCount = 0;
-	// 		activeScene++;
-	// }
-	// if (activeScene>=scenes.length){
-	// 		activeScene=0;
-	// }
+	if (peakCount > 3){
+			peakCount = 0;
+			activeScene++;
+	}
+	if (activeScene>=scenes.length){
+			activeScene=0;
+	}
 
 
 
