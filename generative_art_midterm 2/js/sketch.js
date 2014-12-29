@@ -60,6 +60,11 @@ var s4colors; //winter
 
 var agent;
 
+var gui;
+var gridCTRL = {
+  sensitivity: .1
+}
+
 function setup(){
 	//Create the canvas at window height and width
 	myCanvas = createCanvas(windowWidth, windowHeight);
@@ -72,9 +77,11 @@ function setup(){
 	fft = new p5.FFT([.8],[16]);
 	fft.setInput(mic);
 
-
 	amp = new p5.Amplitude();
 
+	//Dat gui
+ 	gui = new dat.GUI();
+  	gui.add(gridCTRL, "sensitivity", .05, 1);
 
 	// COLORS! To randomly set colors just put s1colors. Example: fill(s3colors). Randomly chooes colors from season 3 (Fall).
 	s1colors = colors[0][int(random(0,4))];
@@ -534,7 +541,7 @@ function draw(){
 
 	//AHHHHH!H!HHASIAJDSFLASDHGLKHA!!!!!!
 
-	if (vol > .1){
+	if (vol > gridCTRL.sensitivity){
 		peakCount++;
 		print(vol);
 	} 
