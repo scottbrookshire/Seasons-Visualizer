@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <!-- Basics
+        ================================================== -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Seasons Visualizer</title>
+        <meta name="description" content="A music visualizer for your viewing pleasure. Play on some jams, turn on your mic, and sit back. ">
+
+        <!-- JQUERY, GUI and Typekit
+        ================================================== -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/vendor/dat.gui.js"></script>
+        <script src="//use.typekit.net/eae4twn.js"></script>
+		<script>try{Typekit.load();}catch(e){}</script>
+
+        
+
+
+
+<script type="text/javascript">
+
+	var h = $(window).height();
+
+	$(document).ready(function(){
+
+		splashsize();
+
+		
+
+		function splashsize(){
+			$('.splash-page').css('min-height',h)
+		};
+
+		$(".contributers").click(function(){
+			$(".titleScreen").addClass("animatedout fadeOutLeft");
+			$(".cont-page").removeClass("hidden");
+		});
+
+		
+
+		$(".back").click(function(){
+			$(".cont-page").addClass("hidden");
+			$(".titleScreen").removeClass("animated fadeInUp animatedout fadeOutLeft");
+			$(".titleScreen").addClass("animated fadeInUp");
+		});
+
+
+	}); // End of Document Ready
+	</script>
+
+
+        <!-- CSS/ SASS
+        ================================================== -->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+
+        <!-- Necessary styling for p5.js
+        ================================================== -->
+		<style>
+			body{padding: 0; margin:0; overflow: hidden;}
+			canvas{ padding: 0;}
+		</style>
+
+</head>
+<body>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.15/p5.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.15/addons/p5.sound.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.11/addons/p5.dom.min.js"></script>
+	<script type="text/javascript" src="js/vendor/tween.min.js"></script>
+	<script type="text/javascript" src="js/sketch.js"></script>
+
+	<div id="wrapper" class="splash-page">
+
+
+	<section class="titleScreen">
+		<h1 class="titleSlide">Seasons</h1>
+		<h2 class="tagSlide">A browser enabled music visualizer </h2>
+	
+
+	<div class="pickerScreen">
+		<p class ="description">Pick Fall, turn on your mic, play some music. Enjoy. A Google Chrome experiment.</p>
+		<p class ="description sub">Other seasons currently in development. Also works with Firefox.</p>
+		<div class="row">
+			<div class="col-3 spring">
+			<a href="#" onclick="hideWrapper();">Spring
+			</a>
+			</div>
+
+			<div class="col-3 summer">
+			<a href="#" onclick="hideWrapper();">Summer
+			</a>
+			</div>
+
+			<div class="col-3 fall">
+			<a href="#" onclick="hideWrapper();">Fall
+			</a>
+			</div>
+
+			<div class="col-3 winter">
+			<a href="#" onclick="hideWrapper();">Winter
+			</a>
+			</div>
+		</div>
+		</br>
+		<h3 class=" contributers">Contributers</h3>
+	</div>
+	</section>
+
+	<div class=" wrapper cont-page hidden">
+
+			<h2 class="nolink">Created By:</h2>
+			<p>
+			<a href="http://scottbrookshiredesign.com" target="_blank" >Scott Brookshire</a> + 
+			<a href="http://thatryanjones.com" target="_blank" >Ryan Jones</a></p>
+			</br>
+			<h2 class="nolink">With Contributions by:</h2>
+			<p>
+			<a href="http://http://rybotron.com/" target="_blank" >Ryan Berkey</a>, and inspiration from
+			<a href="http://p5art.tumblr.com/" target="_blank" >Jerome Herr</a>
+			</br>
+		
+				
+
+			</p>
+			<svg class="back" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			viewBox="-909 491 100 100" enable-background="new -909 491 100 100" xml:space="preserve">
+			<g id="Captions">
+			</g>
+			<g id="Your_Icon">
+			<polygon fill="#EFDFC2" points="-820.7,524 -889.1,524 -856,490.9 -858.1,488.8 -892.6,523.3 -894.7,525.4 -892.6,527.5 
+			-858.1,562.1 -856,560 -889.1,526.9 -820.7,526.9 	"/>
+			</g>
+			</svg>
+	</div>	
+	</div>
+</body>
+</html>
