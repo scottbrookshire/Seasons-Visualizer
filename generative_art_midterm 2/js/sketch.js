@@ -78,10 +78,12 @@ function setup(){
 	fft.setInput(mic);
 
 	amp = new p5.Amplitude();
+	var vol = mic.getLevel();
+	print(vol);
 
 	//Dat gui
  	gui = new dat.GUI();
-  	gui.add(gridCTRL, "sensitivity", .05, 1);
+  	gui.add(gridCTRL, "sensitivity", .05, .75);
 
 	// COLORS! To randomly set colors just put s1colors. Example: fill(s3colors). Randomly chooes colors from season 3 (Fall).
 	s1colors = colors[0][int(random(0,4))];

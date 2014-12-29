@@ -355,7 +355,7 @@ canvas{
     left:50%;
     position: fixed;
     top: 50%;
-    margin-top: -200px;
+    margin-top: -225px;
     margin-left:-475px;
 }
 
@@ -392,7 +392,10 @@ p, a {
     letter-spacing: .15em;
 
 }
-
+p.sub{
+    font-size: .7em;
+    opacity: .7;
+}
 
 
 a:link, a:visited, a:active, .contributers{
