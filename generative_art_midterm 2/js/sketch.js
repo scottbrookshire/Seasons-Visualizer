@@ -786,8 +786,8 @@ function keyTyped(){
 
 function hideWrapper() {
  	document.getElementById('wrapper').style.cssText = 'display:none';
-	var fs = fullscreen();
-	fullscreen(!fs);
+	// var fs = fullscreen();
+	// fullscreen(!fs);
 	mic.start();
 }
 
