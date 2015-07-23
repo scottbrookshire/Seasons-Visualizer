@@ -335,6 +335,11 @@ textarea {
 .col-11 { width: 91.3461538462% }
 .col-12 { width: 100%; margin: 0 }
 
+.button{
+    margin:0 auto;
+    width:250px;
+
+}
 /*------------------------------
 Our styles 
 --------------------------------*/
@@ -350,7 +355,7 @@ canvas{
 }
 #wrapper{
     display:block;
-    max-width:1500px;
+    width:950px;
     margin:0 auto;
     left:50%;
     position: fixed;
@@ -416,7 +421,7 @@ transition: 150ms all ease-in-out;
 }
 
 .titleScreen{
-
+    text-align: center;
    margin:0 auto 2% auto;
     display:block;
     
@@ -424,7 +429,7 @@ transition: 150ms all ease-in-out;
 }
 
 .pickerScreen{
-
+    text-align: center;
     margin:5% auto;
     display:block;   
 }
@@ -1080,7 +1085,7 @@ slideRight
 
 .contributers{
     cursor:pointer;
-    margin-top: 45px;
+    margin-top: 0px;
     text-transform: UPPERCASE;
     letter-spacing: .15em;
     font-size: .9em;
