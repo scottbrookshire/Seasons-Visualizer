@@ -399,7 +399,6 @@ p, a {
 }
 p.sub{
     font-size: .7em;
-    opacity: .7;
 }
 
 
@@ -649,7 +648,7 @@ slideRight
 
 @-webkit-keyframes titleSlide {
     0% {
-        -webkit-transform: translateY(10%);
+        -webkit-transform: translateY(15%);
         -webkit-opacity: 0;
     }
     100% {
@@ -660,7 +659,7 @@ slideRight
 
 @-moz-keyframes titleSlide {
     0% {
-        -moz-transform: translateY(10%);
+        -moz-transform: translateY(15%);
         -moz-opacity: 0;
     }
     100% {
@@ -690,11 +689,11 @@ slideRight
 
 @-webkit-keyframes tagSlide {
     0% {
-        -webkit-transform: translateY(10%);
+        -webkit-transform: translateY(15%);
         -webkit-opacity: 0;
     }
     15% {
-        -webkit-transform: translateY(10%);
+        -webkit-transform: translateY(15%);
         -webkit-opacity: 0;
     }
     100% {
@@ -705,11 +704,11 @@ slideRight
 
 @-moz-keyframes tagSlide {
     0% {
-        -moz-transform: translateY(10%);
+        -moz-transform: translateY(15%);
         -moz-opacity: 0;
     }
     15% {
-        -moz-transform: translateY(10%);
+        -moz-transform: translateY(15%);
         -moz-opacity: 0;
     }
     100% {
@@ -738,11 +737,11 @@ slideRight
 
 @-webkit-keyframes description {
     0% {
-        -webkit-transform: translateY(10%);
+        -webkit-transform: translateY(15%);
         -webkit-opacity: 0;
     }
     30% {
-        -webkit-transform: translateY(10%);
+        -webkit-transform: translateY(15%);
         -webkit-opacity: 0;
     }
     100% {
@@ -753,11 +752,11 @@ slideRight
 
 @-moz-keyframes description {
     0% {
-        -moz-transform: translateY(10%);
+        -moz-transform: translateY(15%);
         -moz-opacity: 0;
     }
     30% {
-        -moz-transform: translateY(10%);
+        -moz-transform: translateY(15%);
         -moz-opacity: 0;
     }
     100% {
@@ -1097,11 +1096,11 @@ slideRight
 
 @-webkit-keyframes contributers {
     0% {
-        -webkit-transform: translateY(10%);
+        -webkit-transform: translateY(15%);
         -webkit-opacity: 0;
     }
     85% {
-        -webkit-transform: translateY(10%);
+        -webkit-transform: translateY(15%);
         -webkit-opacity: 0;
     }
     100% {
@@ -1112,11 +1111,11 @@ slideRight
 
 @-moz-keyframes contributers {
     0% {
-        -moz-transform: translateY(10%);
+        -moz-transform: translateY(15%);
         -moz-opacity: 0;
     }
     85% {
-        -moz-transform: translateY(10%);
+        -moz-transform: translateY(15%);
         -moz-opacity: 0;
     }
     100% {
